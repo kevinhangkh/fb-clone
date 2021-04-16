@@ -1,0 +1,40 @@
+<div class="modal-header">
+    <div>
+        <h1 class="modal-title">Sign up</h1>
+        <p class="quickneasy">It's quick and easy</p>
+    </div>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form class="signup-form" [formGroup]="signUpForm">
+        <div class="username">
+            <div class="container-firstname">
+                <input class="input-firstname" type="text" formControlName="firstName" placeholder="First Name" 
+                [ngClass]="firstName.invalid && firstName.touched ? 'invalid' : ''">
+                <i class="fas fa-exclamation-circle error-firstname error fa-fw" *ngIf="firstName.invalid && firstName.touched"></i>
+            </div>
+            <div class="container-lastname">
+                <input class="input-lastname" type="text" formControlName="lastName" placeholder="Last Name"
+                [ngClass]="lastName.invalid && lastName.touched ? 'invalid' : ''">
+                <i class="fas fa-exclamation-circle error-firstname error fa-fw" *ngIf="lastName.invalid && lastName.touched"></i>
+            </div>
+        </div>
+        <div class="container-email">
+            <input class="login" type="text" formControlName="email" placeholder="Email"
+            [ngClass]="email.invalid && email.touched ? 'invalid' : ''">
+            <i class="fas fa-exclamation-circle error-email error fa-fw" *ngIf="email.invalid && email.touched"></i>
+        </div>
+        <div class="container-password">
+            <input class="login" [type]="hidePassword ? 'password' : 'text'" formControlName="password" placeholder="Password"
+            [ngClass]="password.invalid && password.touched ? 'invalid' : ''">
+            <!-- <i class="fas fa-exclamation-circle error-email error" *ngIf="password.invalid && password.touched"></i> -->
+            <i class="far fa-fw fa-lg showPwd" [ngClass]="hidePassword ? 'fa-eye-slash' : 'fa-eye'" (click)="hide()" *ngIf="'' != this.password.value && null != this.password.value"></i>
+            <span class="error-password6" *ngIf="password.invalid && password.touched">Enter a combination of at least 6 numbers, letters and punctuation marks (like ! and &)</span>
+        </div>
+            <div class="signup-container">
+                <button class="signup-button" type="submit" [disabled]="signUpForm.invalid" (click)="activeModal.close(signUpForm)">Sign Up</button>
+            </div>
+    </form>
+</div>

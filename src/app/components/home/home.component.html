@@ -1,0 +1,249 @@
+<div class="home-container">
+    <div class="home-header">
+        
+        <div class="home-header-left">
+            <img class="f-logo" src="../../../assets/f_logo.png" alt="logo" mat-card-avatar>
+            <div class="input">
+                <div class="fas fa-search icon-search"></div>
+                <input class="input-search" type="text" placeholder="Search Fakebook">
+            </div>
+        </div>
+        
+        <div class="home-header-middle">
+            <!-- <div></div> -->
+            <div class="hoverable-icon" (click)="changeActiveTab('home')"
+            [ngClass]="isActiveTab('home')?'active':''">
+                <i class="fas fa-home"></i>
+            </div>
+            <div class="hoverable-icon" (click)="changeActiveTab('video')"
+            [ngClass]="isActiveTab('video')?'active':''">
+                <i class="fas fa-video"></i>
+            </div>
+            <div class="hoverable-icon" (click)="changeActiveTab('store')"
+            [ngClass]="isActiveTab('store')?'active':''">
+                <i class="fas fa-store"></i>
+            </div>
+            <div class="hoverable-icon" (click)="changeActiveTab('users')"
+            [ngClass]="isActiveTab('users')?'active':''">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="hoverable-icon" (click)="changeActiveTab('flag')"
+            [ngClass]="isActiveTab('flag')?'active':''">
+                <i class="fas fa-flag"></i>
+            </div>
+        </div>
+
+        <div class="home-header-right">
+            <div class="right-avatar-div">
+                <img class="right-avatar" [src]="user?.avatar" alt="{{ user?.avatar }}" mat-card-avatar>
+                <span class="name">{{ user?.firstName }}</span>
+            </div>
+            
+            <div class="right-icons-container">
+            <div class="right-icons">
+                <div>
+                    <i class="fas fa-plus right-icon"></i>
+                </div>
+                <div>
+                    <i class="fas fa-comments badge-comment right-icon"></i>
+                </div>
+                <div>
+                    <i class="fas fa-bell right-icon"></i>
+                </div>
+                <!-- MENU BUTTON -->
+                <div> 
+                    <i class="fas fa-caret-down right-icon" [matMenuTriggerFor]="menu"></i>
+                    <mat-menu #menu="matMenu">
+                        <div class="right-avatar-menu-div">
+                            <div class="right-avatar-menu">
+                                <img class="right-avatar-menu-avatar" [src]="user?.avatar" alt="{{ user?.avatar }}" mat-card-avatar>
+                                <div class="right-avatar-menu-profile">
+                                    <span class="right-avatar-menu-name">{{ user?.firstName }} {{ user?.lastName }}</span>
+                                    <span class="right-avatar-menu-see">See your profile</span>
+                                </div>
+                            </div>
+                            <mat-divider></mat-divider>
+                            <!-- <hr class="right-avatar-menu-hr"> -->
+                            <!-- <button mat-menu-item (clicked)="logOut()"> -->
+                                <div class="right-avatar-menu-logout" (click)="logOut()">
+                                    <i class="fas fa-sign-out-alt right-avatar-menu-logout-icon"></i>
+                                    <span class="right-avatar-menu-logout-text">Log out</span>
+                                </div>
+                                <!-- </button> -->
+                        </div>
+                    </mat-menu>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- LEFT BAR -->
+    <div class="home-body">
+        <div class="home-body-left">
+            <div class="inside">
+                <div class="user-avatar">
+                    <img [src]="user?.avatar" alt="{{ user?.avatar }}" mat-card-avatar>
+                    <span class="name">{{ user?.firstName }} {{ user?.lastName }}</span>
+                </div>
+                
+                <div class="body-left">
+                    <i class="fas fa-notes-medical fa-fw body-left-icon"></i>
+                    <div class="body-left-2lines">
+                        <span>Covid-19 Information Center</span>
+                        <div class="body-left-notification">
+                            <h5>
+                                <i class="fas fa-circle fa-xs"></i>
+                                &nbsp;1 notification
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="body-left">
+                    <i class="fas fa-flag fa-fw body-left-icon"></i>
+                    <span>Pages</span>
+                </div>
+                <div class="body-left">
+                    <i class="fas fa-user-friends fa-fw body-left-icon"></i>
+                    <div class="body-left-2lines">
+                        <span>Friends</span>
+                        <div class="body-left-notification">
+                            <h5>
+                                <i class="fas fa-circle fa-xs"></i>
+                                &nbsp;2 requests
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="body-left">
+                    <i class="fas fa-comment fa-fw body-left-icon"></i>
+                    <span>Messenger</span>
+                </div>
+                <div class="body-left">
+                    <i class="fas fa-store fa-fw body-left-icon"></i>
+                    <span>Marketplace</span>
+                </div>
+                <div class="body-left">
+                    <i class="fas fa-film fa-fw body-left-icon"></i>
+                    <span>Videos</span>
+                </div>
+                <div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+        
+        <div class="home-body-middle">
+
+            <!-- STORIES -->
+            <div class="stories">
+                <div class="story-card" *ngFor="let i of stories">
+                    <img class="story-card-img" src="{{ i.url }}" alt="{{ i.name }}">
+                    <div class="story-card-name " [ngClass]="i.name.length <= 12 ? 'story-card-name-pos' : 'story-card-name-pos2'" >
+                        {{ i.name }}
+                    </div>
+                </div>
+            </div>
+            
+            
+            <!-- POST SOMETHING -->
+            <mat-card class="home-body-middle-post-something">
+                <mat-card-header class="card-header">
+                    <img [src]="user?.avatar" alt="{{user?.avatar}}" mat-card-avatar>
+                    <span>
+                        <form #form="ngForm" (ngSubmit)="postSomething(form)">
+                            <input type="text" placeholder="What's on your mind {{user?.firstName}}?" class="input-post" name="message" 
+                                ngModel required>
+                        </form>
+                    </span>
+                </mat-card-header>
+                <mat-card-content class="card-body">
+                    <div class="card-body-buttons">
+                        <i class="fas fa-video text-danger fa-lg"></i>
+                        <span class="text-secondary card-body-text">Live video</span>
+                    </div>
+                    <div class="card-body-buttons">
+                        <i class="fas fa-photo-video text-success fa-lg"></i>
+                        <span class="text-secondary card-body-text">Photo/Video</span>
+                    </div>
+                    <div class="card-body-buttons">
+                        <i class="fas fa-smile text-warning fa-lg"></i>
+                        <span class="text-secondary card-body-text">Feeling/Activity</span>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+
+            <!-- LIST OF POSTS -->
+            <div class="posts">
+                <mat-card class="post" *ngFor="let p of posts">
+                    <mat-card-header class="post-card-header">
+                        <img [src]="p?.avatar" alt="{{ p?.avatar }}" mat-card-avatar>
+                        <div class="post-name-time">
+                            <span class="post-name">{{ p?.firstName }} {{p?.lastName}}</span>
+                            <span class="post-time" ngbTooltip="{{ p?.time?.toDate() | date : 'EEEE, MMMM d, y h:mm' }}" placement="bottom">
+                                {{ p?.time?.toDate() | timeAgo }}
+                            </span>
+                        </div>
+                    </mat-card-header>
+                    <mat-card-content class="post-card-body">
+                        <div class="post-text">
+                            {{ p?.message }}
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+                
+                <!-- <mat-card class="post" >
+                    <mat-card-header class="post-card-header">
+                        <img src="../../../assets/buzz_lightyear.jpg" alt="avatar" mat-card-avatar>
+                        <div class="post-name">Name</div>
+                    </mat-card-header>
+                    <mat-card-content class="post-card-body">
+                        <div class="post-text">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. <br>
+                            Aliquid minus, optio ullam modi expedita odit amet asperiores possimus culpa? <br>
+                            Culpa error dolor ipsa corporis ex exercitationem, incidunt esse est veritatis.
+                        </div>
+                    </mat-card-content>
+                </mat-card> -->
+            </div>
+
+        </div>
+
+        <!-- CONTACT LIST -->
+        
+        <div class="home-body-right">
+
+            <div class="contacts">
+                <div class="contacts-title">
+                    <span class="contacts-text">Contacts</span>
+                    <span class="contacts-icons">
+                        <i class="fas fa-video fa-fw contacts-icon"></i>
+                        <i class="fas fa-search fa-fw contacts-icon"></i>
+                        <i class="fas fa-ellipsis-h fa-fw contacts-icon"></i>
+                    </span>
+                </div>
+                <div *ngFor="let u of users" class="contact-list">
+                    <!-- Skip the current user so it doesn't display in the list of contacts -->
+                    <div class="contact" *ngIf="user.email != u.email">
+                        <img [src]="u?.avatar" alt="{{ u?.avatar }}" mat-card-avatar>
+                        <span class="name">{{ u?.firstName }} {{ u?.lastName }}</span>
+                    </div>
+                    <mat-card class="contact-card-tooltip">
+                        <div class="contact-card-tooltip-left">
+                            <img class="contact-card-tooltip-avatar" [src]="u?.avatar" alt="{{ u?.avatar }}" mat-card-avatar>
+                        </div>
+                        <div class="contact-card-tooltip-right">
+                            <span class="contact-card-tooltip-name">{{ u?.firstName }} {{ u?.lastName }}</span>
+                            <div class="contact-card-tooltip-info">
+                                <i class="fas fa-user-friends fa-fw contact-card-tooltip-icon"></i>
+                                <span class="contact-card-tooltip-friends-with">6 mutual friends including Omar Little and Jimmy McNulty</span>
+                                <i class="fas fa-graduation-cap fa-fw contact-card-tooltip-icon"></i>
+                                <span class="contact-card-tooltip-studied">Studied at Greendale Community College</span>
+                            </div>
+                        </div>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

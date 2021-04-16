@@ -1,0 +1,183 @@
+
+@import "../../../styles.css";
+
+
+.login-container {
+    background-color: #f8f2f5;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-header {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-header-left {
+    width: 500px;
+    padding-right: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+img {
+    height: 100px;
+    margin-right: 30px;
+    margin-bottom: 15px;
+}
+
+.fakebook {
+    font-size: 60px;
+    color: var(--fb-color);
+    letter-spacing: -2px;
+}
+
+h2 {
+    font-size: 25px;
+    font-family: Roboto;
+    font-weight: 400;
+}
+
+.login-header-right {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.login-header-right-card {
+    height: 380px;
+    width: 400px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.login-header-right-card-content {
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input {
+    padding: 15px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    outline: none;
+}
+
+input:focus {
+    border: 1px solid var(--fb-color);
+}
+
+input::placeholder {
+    font-size: medium;
+    font-weight: normal;
+}
+
+.password-container {
+    display: flex;
+    position: relative;
+}
+
+.password-input {
+    width: 100%;
+}
+
+.showPwd {
+    position: absolute;
+    top: 19px;
+    right: 10px;
+    /* font-size: large; */
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.showPwd:hover {
+    opacity: 1;
+}
+
+.login-button {
+    background-color: var(--fb-color);
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    padding: 15px;
+    color: white;
+    font-weight: 500;
+    font-size: medium;
+
+}
+
+.login-button:disabled {
+    opacity: 0.5;
+}
+
+.forgot-password-link {
+    text-decoration-line: none;
+    color: #1877f2
+    ;
+    font-weight: 500;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* Tooltip renderer */
+::ng-deep .tooltip-inner {
+    background-color: #fff;
+    color: #000;
+    border-radius: 5px;
+    box-shadow: 0 0 3px #00000040;
+    opacity: 0.9;
+  }
+
+hr {
+    width: 100%;
+    text-align: center;
+    border: 0.5px solid lightgrey;
+    font-weight: lighter;
+}
+
+.create-account-button {
+    margin-top: 20px;
+    background-color: #42b72a;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    padding: 15px;
+    color: white;
+    font-weight: 500;
+    font-size: medium;
+    cursor: pointer;
+}
+
+.create-page {
+    text-align: center;
+}
+
+.create-page-link {
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.alert {
+    position: absolute;
+    width: 400px;
+}

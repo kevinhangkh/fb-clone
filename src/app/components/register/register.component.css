@@ -1,0 +1,153 @@
+
+.header {
+    padding-bottom: 1px;
+}
+
+.modal-header {
+    padding-bottom: 0;
+}
+
+.modal-title {
+    font-weight: 500;
+    font-size: 30px;
+    margin-bottom: 5px;
+}
+
+.signup-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.username {
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    /* margin: 0 auto; */
+    flex-grow: 100;
+    /* width:max-content; */
+    /* position: relative; */
+    gap: 10px;
+    justify-content: space-between;
+}
+
+input {
+    padding: 15px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    display: 100%;
+    outline: none;
+}
+
+.invalid {
+    border: 1px solid red;
+}
+
+.container-firstname {
+    position: relative;
+    display: table-cell;
+    min-width: 220px;
+    /* display: flex;
+    flex-direction: row; */
+}
+
+.input-firstname {
+    width: 100%;
+    /* flex: 1; */
+}
+
+.error-firstname {
+    position: absolute;
+    top: 18px;
+    /* left: 200px; */
+    right: 10px;
+}
+
+.error {
+    color: red;
+    font-size: large;
+}
+
+.container-lastname {
+    /* display: flex; */
+    position: relative;
+    display: table-cell;
+    width: 100%;
+}
+
+.input-lastname {
+    width: 100%;
+    flex-grow: 100;
+    /* flex: 1; */
+    /* margin-left: 7px; */
+}
+
+.error-lastname {
+    position: absolute;
+    top: 18px;
+    /* left: 200px; */
+    right: 10px;
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    /* margin: 5px; */
+    width: 100%;
+}
+
+.container-email, .container-password {
+    padding: 5px;
+    position: relative;
+}
+
+.error-email {
+    position: absolute;
+    top: 23px;
+    /* left: 200px; */
+    right: 14px;
+}
+
+.showPwd {
+    position: absolute;
+    top: 25px;
+    right: 14px;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.showPwd:hover {
+    opacity: 1;
+}
+
+.error-password6 {
+    font-size: small;
+    font-weight: 400;
+    color: red;
+}
+
+.signup-container {
+    display: flex;
+    /* place-items: center; */
+    /* text-align: center; */
+    justify-content: center;
+    padding-top: 10px;
+}
+
+.signup-button {
+    text-align: center;
+    /* margin-top: 20px; */
+    background-color: #42b72a;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    padding: 15px;
+    width: 150px;
+    color: white;
+    font-weight: 500;
+    font-size: medium;
+    /* cursor: pointer; */
+}
+
+.signup-button:disabled {
+    opacity: 0.5;
+}

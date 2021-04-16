@@ -1,0 +1,36 @@
+/* You can add global styles to this file, and also import other style files */
+
+@font-face {
+    font-family: Roboto;
+    src: url('assets/font/Roboto-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: Klavika;
+    src: url('assets/font/klavika-bold.otf') format('truetype');
+}
+
+.roboto {
+    font-family: Roboto;
+}
+
+.klavika {
+    font-family: Klavika;
+}
+
+:root {
+    --fb-color: #1778f2;
+}
+
+
+
+html, body { height: 100%; }
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.myCustomModalClass .modal-dialog {
+    min-width: 400px;
+  }

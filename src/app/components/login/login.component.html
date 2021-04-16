@@ -1,0 +1,40 @@
+<div class="login-container">
+    <header class="login-header">
+
+        <div class="login-header-left">
+            <!-- <img src="../../../assets/fakebook.jpeg"/> -->
+            <p class="klavika fakebook">fakebook</p>
+            <h2 class="roboto">Fakebook helps you connect and share with people around the world.</h2>
+        </div>
+
+        <div class="login-header-right">
+            <mat-card class="login-header-right-card">
+                <mat-card-content class="login-header-right-card-content">
+                    <form [formGroup]="logInForm" class="login-form">
+                        <input type="text" formControlName="email" placeholder="Email address" required>
+                        <div class="password-container">
+                            <input class="password-input" [type]="hidePassword ? 'password' : 'text'" formControlName="password" placeholder="Password" required>
+                            <i class="far fa-fw fa-lg showPwd" [ngClass]="hidePassword ? 'fa-eye-slash' : 'fa-eye'" (click)="hide()" *ngIf="'' != this.password.value && null != this.password.value"></i>
+                        </div>
+                        <button type="submit" class="login-button roboto" [disabled]="logInForm.invalid || logInForm.pending" (click)="logIn(logInForm)">Log in</button>
+                    </form>
+                    
+
+                    <a class="forgot-password-link" [ngbTooltip]="tipContent" triggers="click:blur" placement="bottom">Forgot your password?</a>
+                    <ng-template #tipContent>This feature is coming soon<br>For now, don't forget your password</ng-template>
+                    <hr>
+                    <button class="create-account-button" (click)="openSignUp()">Sign up</button>
+                    
+                </mat-card-content>
+            </mat-card>
+
+            <p class="create-page"><a class="create-page-link" [ngbTooltip]="tipContent2" triggers="click:blur" placement="bottom">Create a page</a> for a pet, an influencer or a veggie.</p>
+            <ng-template #tipContent2>This feature will be available soon</ng-template>
+            <span class="alert-msg">
+                <ngb-alert #staticAlert type="danger" *ngIf="errorMsg != undefined" (closed)="resetErrorMsg()">{{ errorMsg?.message }}</ngb-alert>
+            </span>
+        </div>
+
+    </header>
+    
+</div>
