@@ -1,3 +1,10 @@
+#TODO
+- [x] 1st commit
+- [ ] Add mutual friends, work/study place in Firebase when creating user
+- [ ] Left body: add more mock buttons
+- [ ] Mid body: remove gap between buttons in Post something div
+- [ ] Right body: add mock sections (birthdays, events...)
+
 # FbClone
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.0.
