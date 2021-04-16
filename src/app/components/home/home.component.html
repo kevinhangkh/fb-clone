@@ -149,7 +149,7 @@
             <!-- POST SOMETHING -->
             <mat-card class="home-body-middle-post-something">
                 <mat-card-header class="card-header">
-                    <img [src]="user?.avatar" alt="{{user?.avatar}}" mat-card-avatar>
+                    <img class="avatar" [src]="user?.avatar" alt="{{user?.avatar}}" mat-card-avatar>
                     <span>
                         <form #form="ngForm" (ngSubmit)="postSomething(form)">
                             <input type="text" placeholder="What's on your mind {{user?.firstName}}?" class="input-post" name="message" 
@@ -159,15 +159,15 @@
                 </mat-card-header>
                 <mat-card-content class="card-body">
                     <div class="card-body-buttons">
-                        <i class="fas fa-video text-danger fa-lg"></i>
+                        <i class="fas fa-video text-danger fa-lg fa-fw card-body-icon"></i>
                         <span class="text-secondary card-body-text">Live video</span>
                     </div>
                     <div class="card-body-buttons">
-                        <i class="fas fa-photo-video text-success fa-lg"></i>
+                        <i class="fas fa-photo-video text-success fa-lg fa-fw card-body-icon"></i>
                         <span class="text-secondary card-body-text">Photo/Video</span>
                     </div>
                     <div class="card-body-buttons">
-                        <i class="fas fa-smile text-warning fa-lg"></i>
+                        <i class="fas fa-smile text-warning fa-lg fa-fw card-body-icon"></i>
                         <span class="text-secondary card-body-text">Feeling/Activity</span>
                     </div>
                 </mat-card-content>
@@ -177,7 +177,7 @@
             <div class="posts">
                 <mat-card class="post" *ngFor="let p of posts">
                     <mat-card-header class="post-card-header">
-                        <img [src]="p?.avatar" alt="{{ p?.avatar }}" mat-card-avatar>
+                        <img class="avatar" [src]="p?.avatar" alt="{{ p?.avatar }}" mat-card-avatar>
                         <div class="post-name-time">
                             <span class="post-name">{{ p?.firstName }} {{p?.lastName}}</span>
                             <span class="post-time" ngbTooltip="{{ p?.time?.toDate() | date : 'EEEE, MMMM d, y h:mm' }}" placement="bottom">
