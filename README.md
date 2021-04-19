@@ -4,9 +4,11 @@
 - [ ] Get connected users
 - [x] Add border to avatars
 - [ ] Manage long strings in list of posts
+- [x] Header: Prevent collapsing
 - [ ] Left body: add more mock buttons
 - [ ] Mid body: add random stories
 - [ ] Mid body: add border to avatar in posts
+- [x] Mid body: background borders stop at unscrolled area
 - [x] Mid body: remove gap between buttons in Post something div
 - [x] Mid body: prevent Contacts from collapsing
 - [ ] Mid body: add Create room div
