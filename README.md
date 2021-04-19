@@ -3,10 +3,12 @@
 - [ ] Add mutual friends, work/study place in Firebase when creating user
 - [ ] Get connected users
 - [x] Add border to avatars
+- [ ] Manage long strings in list of posts
 - [ ] Left body: add more mock buttons
 - [ ] Mid body: add random stories
 - [ ] Mid body: add border to avatar in posts
 - [x] Mid body: remove gap between buttons in Post something div
+- [x] Mid body: prevent Contacts from collapsing
 - [ ] Mid body: add Create room div
 - [ ] Right body: add mock sections (birthdays, events...)
 
