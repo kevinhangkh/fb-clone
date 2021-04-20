@@ -200,7 +200,7 @@
     font-size: 16px;
     padding-right: 5px;
     /* margin-left: 5px; */
-    line-height: 25px;
+    /* line-height: 10px; */
 }
 
 .right-icons {
@@ -633,6 +633,10 @@
     /* display: inline-block; */
 }
 
+.post-name:hover {
+    text-decoration: underline;
+}
+
 .post-time {
     /* font-weight: 400; */
     font-size: small;
@@ -747,7 +751,7 @@
     display: none;
 
     width: 300px;
-    height: 175px;
+    height: 190px;
 }
 
 .contact:hover ~ .contact-card-tooltip {
@@ -821,4 +825,9 @@
 
 .new-message-icon:hover {
     background-color: #f0f2f5;
+}
+
+.new-message-tip {
+    white-space:nowrap;
+    max-width:none;
 }
