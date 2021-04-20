@@ -109,7 +109,7 @@
     /* margin-left: 10px; */
     align-items: center;
     justify-content: center;
-    z-index: 1000;
+    /* z-index: 1000; */
     /* position: relative; */
     /* clear: both; */
     gap: 1px;
@@ -123,6 +123,7 @@
 
 .hoverable-icon {
     padding: 20px 30px;
+    font-size: 18px;
 }
 
 .hoverable-icon:hover {
@@ -196,6 +197,8 @@
 
 .name {
     font-weight: 500;
+    font-size: 14px;
+    padding-right: 5px;
     /* margin-left: 5px; */
     line-height: 25px;
 }
@@ -340,6 +343,7 @@
     margin-right: 1rem;
     min-width: 265px;
     width: 320px;
+    margin-top: 1rem;
 }
 
 .inside {
@@ -360,6 +364,7 @@
     border-radius: 10px;
     padding: 10px;
     cursor: pointer;
+    font-size: 15px;
 }
 
 .user-avatar:hover {
@@ -375,6 +380,7 @@
     border-radius: 10px;
     padding: 13px;
     font-weight: 500;
+    font-size: 15px;
     cursor: pointer;
 }
 
@@ -402,8 +408,8 @@
 
 .home-body-middle {
     position: relative;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
     min-width: 565px;
     width: 700px;
 }
@@ -622,6 +628,7 @@
 .post-name {
     /* line-height: 30px; */
     font-weight: 500;
+    font-size: 16px;
     cursor: pointer;
     /* display: inline-block; */
 }
@@ -639,6 +646,14 @@
     cursor: pointer;
 }
 
+.post-text {
+    /* line-height: 30px; */
+    /* font-weight: 500; */
+    font-size: 15px;
+    /* cursor: pointer; */
+    /* display: inline-block; */
+}
+
 /* Mid body ends here */
 
 .home-body-right {
@@ -649,6 +664,7 @@
     height: 100vh;
     margin-left: 1rem;
     background-color: #e6e7e9;
+    margin-top: 1rem;
     /* background-color: lightgreen; */
 }
 
@@ -715,6 +731,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    font-size: 15px;
 
     border-radius: 10px;
     /* padding: 10px; */
