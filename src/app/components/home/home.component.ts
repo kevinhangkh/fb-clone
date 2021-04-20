@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     flag: false
   };
 
-  stories = new Array<{url: string, name:string}>(5);
+  stories = new Array<{url: string, name:string}>(6);
 
   posts: any[] = [];
   user: UserData;
@@ -85,7 +85,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     let stories: {url: string, name:string}[] = [];
 
-    while (stories.length < 5) {
+    while (stories.length < this.stories.length) {
       var story = MiscData.stories[Math.floor(Math.random() * MiscData.stories.length)];
       if (stories.indexOf(story) === -1) {
         stories.push(story);
