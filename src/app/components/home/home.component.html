@@ -138,9 +138,9 @@
             <!-- STORIES -->
             <div class="stories">
                 <div class="story-card" *ngFor="let i of stories">
-                    <img class="story-card-img" src="{{ i.url }}" alt="{{ i.name }}">
-                    <div class="story-card-name " [ngClass]="i.name.length <= 12 ? 'story-card-name-pos' : 'story-card-name-pos2'" >
-                        {{ i.name }}
+                    <img class="story-card-img" src="{{ i?.url }}" alt="{{ i?.name }}">
+                    <div class="story-card-name " [ngClass]="i?.name.length <= 12 ? 'story-card-name-pos' : 'story-card-name-pos2'" >
+                        {{ i?.name }}
                     </div>
                 </div>
             </div>
@@ -236,9 +236,11 @@
                             <span class="contact-card-tooltip-name">{{ u?.firstName }} {{ u?.lastName }}</span>
                             <div class="contact-card-tooltip-info">
                                 <i class="fas fa-user-friends fa-fw contact-card-tooltip-icon"></i>
-                                <span class="contact-card-tooltip-friends-with">6 mutual friends including Omar Little and Jimmy McNulty</span>
+                                <span class="contact-card-tooltip-friends-with">
+                                    {{ u?.mutualFriends }} mutual friends including <span class="bold-text">Omar Little</span> and <span class="bold-text">Jimmy McNulty</span>
+                                </span>
                                 <i class="fas fa-graduation-cap fa-fw contact-card-tooltip-icon"></i>
-                                <span class="contact-card-tooltip-studied">Studied at Greendale Community College</span>
+                                <span class="contact-card-tooltip-studied">Studied at<br><span class="bold-text">{{ u?.school }}</span></span>
                             </div>
                         </div>
                     </mat-card>

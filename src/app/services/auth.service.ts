@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { User } from '@firebase/auth-types';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { MiscData } from '../shared/misc-data';
 
 @Injectable({
   providedIn: 'root'
@@ -15,26 +16,6 @@ export class AuthService {
   private currentUser: UserData;
   private currentUser$: BehaviorSubject<UserData> = new BehaviorSubject<UserData>(null);
 
-  defaultAvatar = "../../assets/default_avatar.jpg";
-
-  avatars = [
-    "../../assets/avatars/clint_eastwood.jpg",
-    "../../assets/avatars/pulp_fiction.jpg",
-    "../../assets/avatars/marty_mcfly.jpg",
-    "../../assets/avatars/jack_sparrow.jpg",
-    "../../assets/avatars/leonardo.jpg",
-    "../../assets/avatars/walter_white.jpg",
-    "../../assets/avatars/fight_club.png",
-    "../../assets/avatars/scream.jpg",
-    "../../assets/avatars/freddy_krueger.jpg",
-    "../../assets/avatars/baywatch.jpg",
-    "../../assets/avatars/superman.jpg",
-    "../../assets/avatars/beast.jpg",
-    "../../assets/avatars/lara_croft.jpg",
-    "../../assets/avatars/bruce_lee.jpg",
-  ];
-
-  
   constructor(private afs: AngularFirestore, private afa: AngularFireAuth, private router: Router) { 
     
     this.userData = afa.authState;
@@ -65,7 +46,9 @@ export class AuthService {
     password: string,
     firstName: string,
     lastName: string,
-    avatar = this.avatars[Math.floor(Math.random() * this.avatars.length)]
+    avatar = MiscData.avatars[Math.floor(Math.random() * MiscData.avatars.length)],
+    mutualFriends = Math.floor(Math.random() * MiscData.maxMutualFriends + 1),
+    school = MiscData.schools[Math.floor(Math.random() * MiscData.schools.length)]
     ): void {
       
       this.afa.createUserWithEmailAndPassword(email, password)
@@ -77,7 +60,10 @@ export class AuthService {
             firstName,
             lastName,
             email,
-            avatar
+            avatar,
+            mutualFriends,
+            school
+
           }).then(() => {
             this.afs.collection<UserData>('users')
             .doc(res.user.uid)
@@ -190,5 +176,7 @@ export class AuthService {
     lastName: string;
     email: string;
     avatar: string;
+    mutualFriends: number;
+    school: string;
     id?: string;
   }

@@ -5,6 +5,7 @@ import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import { AuthService, UserData } from 'src/app/services/auth.service';
 import { PostService } from 'src/app/services/post.service';
+import { MiscData } from 'src/app/shared/misc-data';
 
 
 @Component({
@@ -22,13 +23,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     flag: false
   };
 
-  stories: {url: string, name:string}[] = [
-    {url: "../../../assets/john_wick_avatar.png", name:"John Wick"},
-    {url: "../../../assets/mr_potato_head.jpg", name:"Mr Potato Head"},
-    {url: "../../../assets/stormtrooper.png", name:"FN-2187"},
-    {url: "../../../assets/hulk.jpg", name:"Hulk"},
-    {url: "../../../assets/walter_white.jpg", name:"Heisenberg"}
-  ];
+  stories = new Array<{url: string, name:string}>(5);
 
   posts: any[] = [];
   user: UserData;
@@ -41,6 +36,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.titleService.setTitle("Fakebook");
+
+    this.stories = this.getRandomStories();
 
     this.subscriptions.push(this.postService.getAllPosts().subscribe(posts => this.posts = posts));
     
@@ -67,13 +64,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.subscriptions.map(s => s.unsubscribe());
   }
 
-  printIt(): void {
-    console.log("damn");
-    
-    console.log(this.user);
-    
-  }
-
   isActiveTab(tab: string): boolean {
     // console.log(this.active[tab]);
     return this.active[tab];
@@ -89,6 +79,22 @@ export class HomeComponent implements OnInit, OnDestroy {
     
     this.active[tab] = true;
     // console.log(this.active);
+  }
+
+  getRandomStories(): {url: string, name:string}[] {
+
+    let stories: {url: string, name:string}[] = [];
+
+    while (stories.length < 5) {
+      var story = MiscData.stories[Math.floor(Math.random() * MiscData.stories.length)];
+      if (stories.indexOf(story) === -1) {
+        stories.push(story);
+      }
+    }
+
+    console.log(stories);
+    
+    return stories;
   }
 
   postSomething(form: NgForm): void {

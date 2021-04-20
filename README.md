@@ -1,13 +1,13 @@
 # TODO
 - [x] 1st commit
-- [ ] Add mutual friends, work/study place in Firebase when creating user
+- [x] Add mutual friends, work/study place in Firebase when creating user
 - [ ] Get connected users
 - [x] Add border to avatars
-- [ ] Manage long strings in list of posts
+- [x] Manage long strings in list of posts
 - [x] Header: Prevent collapsing
 - [ ] Left body: add more mock buttons
 - [ ] Mid body: add random stories
-- [ ] Mid body: add border to avatar in posts
+- [x] Mid body: add border to avatar in posts
 - [x] Mid body: background borders stop at unscrolled area
 - [x] Mid body: remove gap between buttons in Post something div
 - [x] Mid body: prevent Contacts from collapsing
