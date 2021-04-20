@@ -13,7 +13,7 @@
 - [x] Mid body: prevent Contacts from collapsing
 - [ ] Mid body: add Create room div
 - [ ] Right body: add mock sections (birthdays, events...)
-- [ ] Right body: add New message bottom right button
+- [x] Right body: add New message bottom right button
 
 
 # FbClone
