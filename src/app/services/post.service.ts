@@ -32,15 +32,59 @@ export class PostService {
       );
    }
 
-   postMessage(message: string, ownerName: string, otherItems): void {
-    this.afs.collection('posts').add({
-      message,
-      title: ownerName,
-      user_id: this.currentUser.uid,
-      time: firebase.default.firestore.FieldValue.serverTimestamp(),
-      ...otherItems
-    }).then(res => console.log(res)).catch(err => console.log(err))
-    ;
+  //  postMessage(message: string, ownerName: string, otherItems): void {
+    postMessage(post: PostData): void {
+
+      post.time = firebase.default.firestore.FieldValue.serverTimestamp();
+
+      this.afs.collection('posts').add(post)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+
+    // this.afs.collection('posts').add({
+    //   message,
+    //   title: ownerName,
+    //   user_id: this.currentUser.uid,
+    //   time: firebase.default.firestore.FieldValue.serverTimestamp(),
+    //   likes: [],
+    //   ...otherItems
+    // }).then(res => console.log(res)).catch(err => console.log(err))
+    // ;
     
    }
+
+   dislikePost(postId: string, userId: string): void {
+    
+    var docRef = this.afs.collection('posts').doc(postId);
+
+    docRef.update({
+      likes: firebase.default.firestore.FieldValue.arrayRemove(userId)
+    });
+
+   }
+
+   likePost(postId: string, userId: string): void {
+
+    // console.log(postId);
+    // console.log(userId);
+
+    var docRef = this.afs.collection('posts').doc(postId);
+
+    docRef.update({
+      likes: firebase.default.firestore.FieldValue.arrayUnion(userId)
+    });
+
+   }
+}
+
+export interface PostData {
+  avatar: string,
+  firstName: string,
+  lastName: string,
+  likes: string[],
+  message: string,
+  time?: {},
+  title: string,
+  user_id: string,
+  id?: string
 }

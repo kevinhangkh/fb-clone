@@ -100,7 +100,7 @@
                     </div>
                 </div>
                 <div class="body-left">
-                    <i class="fas fa-flag fa-fw body-left-icon"></i>
+                    <i class="far fa-flag fa-fw body-left-icon"></i>
                     <span>Pages</span>
                 </div>
                 <div class="body-left">
@@ -126,6 +126,22 @@
                 <div class="body-left">
                     <i class="fas fa-film fa-fw body-left-icon"></i>
                     <span>Videos</span>
+                </div>
+                <div class="body-left">
+                    <i class="far fa-calendar-alt fa-fw body-left-icon"></i>
+                    <span>Events</span>
+                </div>
+                <div class="body-left">
+                    <i class="fas fa-history fa-fw body-left-icon"></i>
+                    <span>Memories</span>
+                </div>
+                <div class="body-left">
+                    <i class="far fa-bookmark fa-fw body-left-icon"></i>
+                    <span>Saved</span>
+                </div>
+                <div class="body-left">
+                    <i class="fas fa-angle-down fa-fw body-left-see-more"></i>
+                    <span>See more</span>
                 </div>
                 <div>
                     <hr>
@@ -190,6 +206,33 @@
                             {{ p?.message }}
                         </div>
                     </mat-card-content>
+                    <mat-card-footer class="post-card-footer">
+                        <div class="post-likes" *ngIf="p?.likes.length > 0">
+                            <i class="fas fa-thumbs-up thumbs-up-liked"></i>
+                            <span class="likes-number" [ngbTooltip]="tipLikes" tooltipClass="new-message-tip">{{ p?.likes.length }}</span>
+                            <ng-template #tipLikes>
+                                <div *ngFor="let user of users">
+                                    <span *ngIf="isPostLikedByUser(p,user)">
+                                        {{ user?.firstName }} {{ user?.lastName }}
+                                    </span>
+                                </div>
+                            </ng-template>
+                        </div>
+                        <div class="post-buttons">
+                            <div class="post-button" [ngClass]="isPostLikedByUser(p, this.user) ? 'blue' : ''" (click)="likePost(p)">
+                                <i class="fa-thumbs-up fa-fw fa-lg post-button-like" [ngClass]="isPostLikedByUser(p, this.user) ? 'fas' : 'far'"></i>
+                                Like
+                            </div>
+                            <div class="post-button">
+                                <i class="far fa-comment fa-fw fa-lg"></i>
+                                Comment
+                            </div>
+                            <div class="post-button">
+                                <i class="far fa-share-square fa-fw fa-lg"></i>
+                                Share
+                            </div>
+                        </div>
+                    </mat-card-footer>
                 </mat-card>
                 
                 <!-- <mat-card class="post" >
@@ -224,7 +267,7 @@
                 </div>
                 <div *ngFor="let u of users" class="contact-list">
                     <!-- Skip the current user so it doesn't display in the list of contacts -->
-                    <div class="contact" *ngIf="user.email != u.email">
+                    <div class="contact" *ngIf="user.id != u.id">
                         <img [src]="u?.avatar" alt="{{ u?.avatar }}" mat-card-avatar>
                         <span class="name">{{ u?.firstName }} {{ u?.lastName }}</span>
                     </div>

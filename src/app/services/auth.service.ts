@@ -15,11 +15,14 @@ export class AuthService {
   private userData: Observable<User>
   private currentUser: UserData;
   private currentUser$: BehaviorSubject<UserData> = new BehaviorSubject<UserData>(null);
+  private userDataSub;
 
   constructor(private afs: AngularFirestore, private afa: AngularFireAuth, private router: Router) { 
     
     this.userData = afa.authState;
-    this.userData.subscribe(user => {
+    
+    
+    this.userDataSub = this.userData.subscribe(user => {
       if (user) {
         this.afs.collection<UserData>('users')
         .doc<UserData>(user.uid)
@@ -27,6 +30,7 @@ export class AuthService {
         .subscribe(currentUser => {
           if (currentUser != undefined) {
             this.currentUser = currentUser;
+            this.currentUser.id = user.uid;
             this.currentUser$.next(this.currentUser);
           }
           else {
@@ -35,7 +39,9 @@ export class AuthService {
           }
         })
       }
-    })
+    });
+
+    // userDataSub.unsubscribe();
   }
   
   CurrentUser(): Observable<UserData> {
@@ -71,6 +77,7 @@ export class AuthService {
             .subscribe(user => {
               if (user) {
                 this.currentUser = user;
+                this.currentUser.id = res.user.uid;
                 this.currentUser$.next(this.currentUser);
               }
             });
@@ -108,6 +115,9 @@ export class AuthService {
     }
 
     LogOut(): void {
+
+      // this.userDataSub.unsubscribe();
+
       this.afa.signOut()
       .then(res => {
         this.currentUser = null;
@@ -154,20 +164,7 @@ export class AuthService {
           }
         )
       )
-      
 
-      // .doc<UserData>(user_id)
-        // .snapshotChanges()
-        // .pipe(
-        //   map(actions => {
-        //     return actions.map(item => {
-        //       return {
-        //         id: item.payload.doc.id,
-        //         ...item.payload.doc.data()
-        //       }
-        //     })
-        //   })
-        // );
      }
   }
   

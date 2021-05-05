@@ -4,7 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import { AuthService, UserData } from 'src/app/services/auth.service';
-import { PostService } from 'src/app/services/post.service';
+import { PostData, PostService } from 'src/app/services/post.service';
 import { MiscData } from 'src/app/shared/misc-data';
 
 
@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   stories = new Array<{url: string, name:string}>(6);
 
-  posts: any[] = [];
+  posts: PostData[] = [];
   user: UserData;
   userdata: UserData;
   users: UserData[] = [];
@@ -61,6 +61,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   // }
 
   ngOnDestroy(): void {
+    console.log("ngOnDestroy home");
+    
     this.subscriptions.map(s => s.unsubscribe());
   }
 
@@ -108,20 +110,62 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     console.log(form.value);
+    console.log("user.id " + this.user.id);
+    
 
-    this.postService.postMessage(msg, this.user.firstName + this.user.lastName,
-      {
-        avatar: this.user.avatar,
-        lastName: this.user.lastName,
-        firstName: this.user.firstName
-      });
+    let post: PostData = {
+      avatar: this.user.avatar,
+      firstName: this.user.firstName,
+      lastName: this.user.lastName,
+      likes: [],
+      message: msg,
+      title: this.user.firstName + this.user.lastName,
+      user_id: this.user.id
+    }
+
+
+    // this.postService.postMessage(msg, this.user.firstName + this.user.lastName,
+    //   {
+    //     avatar: this.user.avatar,
+    //     lastName: this.user.lastName,
+    //     firstName: this.user.firstName
+    //   });
+
+    this.postService.postMessage(post);
 
     form.resetForm();
     
   }
 
+  likePost(post: PostData): void {
+
+    // console.log(post);
+
+    // console.log(this.user);
+    // console.log(this.userdata);
+    console.log(post);
+    
+    if (post.likes.indexOf(this.user.id) == -1) {
+      // Increment likes
+      this.postService.likePost(post.id, this.user.id);
+    }
+    else {
+      // Decrement likes
+      this.postService.dislikePost(post.id, this.user.id);
+    }
+    
+  }
+
+  isPostLikedByUser(post: PostData, user: UserData): boolean {
+    return post.likes.indexOf(user.id) != -1;
+  }
+
   logOut() {
     console.log("logOut");
+    this.subscriptions.map(s => {
+      console.log("unsubscribe from " + s);
+      s.unsubscribe()
+    });
     
     this.authService.LogOut();
   }

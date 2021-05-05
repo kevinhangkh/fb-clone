@@ -2,6 +2,10 @@
 - [x] 1st commit
 - [x] Add mutual friends, work/study place in Firebase when creating user
 - [ ] Get connected users
+- [ ] Add tooltips to Sign Up modal form
+- [ ] Homogenize tooltips
+    - [ ] Login page
+    - [ ] Home page
 - [x] Add border to avatars
 - [x] Manage long strings in list of posts
 - [x] Header: Prevent collapsing
@@ -12,6 +16,14 @@
 - [x] Mid body: remove gap between buttons in Post something div
 - [x] Mid body: prevent Contacts from collapsing
 - [ ] Mid body: add Create room div
+- [ ] Mid body: Like feature
+    - [x] Add 'likes' field in database as a string array which will contain user ids
+    - [x] Update this field (add/remove user ids)
+    - [x] Style the view
+        - [x] Like counter
+        - [ ] Like button animation
+- [ ] Mid body: Comment feature
+    - [ ] Think about database architecture
 - [ ] Right body: add mock sections (birthdays, events...)
 - [x] Right body: add New message bottom right button
 
