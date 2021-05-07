@@ -11,19 +11,22 @@
 - [x] Header: Prevent collapsing
 - [ ] Left body: add more mock buttons
 - [x] Mid body: add random stories
+- [ ] Mid body: stories: fix width of div when name takes 2 lines
 - [x] Mid body: add border to avatar in posts
 - [x] Mid body: background borders stop at unscrolled area
 - [x] Mid body: remove gap between buttons in Post something div
 - [x] Mid body: prevent Contacts from collapsing
 - [ ] Mid body: add Create room div
-- [ ] Mid body: Like feature
+- [x] Mid body: Like post feature
     - [x] Add 'likes' field in database as a string array which will contain user ids
     - [x] Update this field (add/remove user ids)
     - [x] Style the view
         - [x] Like counter
-        - [ ] Like button animation
-- [ ] Mid body: Comment feature
+        - [x] Like button animation
+- [ ] Mid body: Comment post feature
     - [ ] Think about database architecture
+- [x] Mid body: Delete post feature
+- [ ] Mid body: Edit post feature
 - [ ] Right body: add mock sections (birthdays, events...)
 - [x] Right body: add New message bottom right button
 

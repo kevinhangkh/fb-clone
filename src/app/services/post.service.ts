@@ -65,15 +65,19 @@ export class PostService {
 
    likePost(postId: string, userId: string): void {
 
-    // console.log(postId);
-    // console.log(userId);
-
     var docRef = this.afs.collection('posts').doc(postId);
 
     docRef.update({
       likes: firebase.default.firestore.FieldValue.arrayUnion(userId)
     });
 
+   }
+
+   deletePost(postId: string): void {
+
+    this.afs.collection('posts').doc(postId).delete()
+    .then(result => console.log("Deleted post " + postId))
+    .catch(err => console.error(err))
    }
 }
 

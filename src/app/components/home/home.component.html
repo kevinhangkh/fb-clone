@@ -193,12 +193,36 @@
             <div class="posts">
                 <mat-card class="post" *ngFor="let p of posts">
                     <mat-card-header class="post-card-header">
-                        <img class="avatar" [src]="p?.avatar" alt="{{ p?.avatar }}" mat-card-avatar>
-                        <div class="post-name-time">
-                            <span class="post-name">{{ p?.firstName }} {{p?.lastName}}</span>
-                            <span class="post-time" ngbTooltip="{{ p?.time?.toDate() | date : 'EEEE, MMMM d, y h:mm' }}" placement="bottom">
-                                {{ p?.time?.toDate() | timeAgo }}
-                            </span>
+                        <div class="post-card-header-left">
+                            <img class="avatar" [src]="p?.avatar" alt="{{ p?.avatar }}" mat-card-avatar>
+                            <div class="post-name-time">
+                                <span class="post-name">{{ p?.firstName }} {{p?.lastName}}</span>
+                                <span class="post-time" ngbTooltip="{{ p?.time?.toDate() | date : 'EEEE, MMMM d, y h:mm' }}" placement="bottom">
+                                    {{ p?.time?.toDate() | timeAgo }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="post-card-header-right" *ngIf="isPostFromUser(p, this.user)">
+                            <i class="fas fa-ellipsis-h fa-fw post-card-header-right-edit" [matMenuTriggerFor]="editPostMenu"></i>
+                            <mat-menu #editPostMenu="matMenu" xPosition="before" yPosition="above">
+                                <div class="edit-post-menu">
+                                    <div class="edit-post-menu-button" >
+                                        <i class="fas fa-pen fa-fw edit-post-menu-icon"></i>
+                                        <div class="edit-post-menu-text">
+                                            <span class="edit-post-menu-title">Edit post</span>
+                                            <span class="edit-post-menu-desc">Make some modifications to the post.</span>
+                                        </div>
+                                    </div>
+                                    <mat-divider class="edit-post-menu-divider"></mat-divider>
+                                    <div class="edit-post-menu-button" (click)="deletePost(p)">
+                                        <i class="far fa-trash-alt fa-fw edit-post-menu-icon"></i>
+                                        <div class="edit-post-menu-text">
+                                            <span class="edit-post-menu-title">Move to Trash</span>
+                                            <span class="edit-post-menu-desc">Be careful, this operation cannot be undone.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-menu>
                         </div>
                     </mat-card-header>
                     <mat-card-content class="post-card-body">

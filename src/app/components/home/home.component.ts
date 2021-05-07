@@ -134,17 +134,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.postService.postMessage(post);
 
     form.resetForm();
-    
   }
 
   likePost(post: PostData): void {
 
-    // console.log(post);
-
-    // console.log(this.user);
-    // console.log(this.userdata);
-    console.log(post);
-    
     if (post.likes.indexOf(this.user.id) == -1) {
       // Increment likes
       this.postService.likePost(post.id, this.user.id);
@@ -158,6 +151,15 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   isPostLikedByUser(post: PostData, user: UserData): boolean {
     return post.likes.indexOf(user.id) != -1;
+  }
+
+  isPostFromUser(post: PostData, user: UserData): boolean {
+    return post.user_id == user.id;
+  }
+
+  deletePost(post: PostData): void {
+    console.log("delete " + post.id);
+    this.postService.deletePost(post.id);
   }
 
   logOut() {
