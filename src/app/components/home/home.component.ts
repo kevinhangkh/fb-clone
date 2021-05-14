@@ -2,10 +2,12 @@ import { Component, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { Title } from '@angular/platform-browser';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { AuthService, UserData } from 'src/app/services/auth.service';
 import { PostData, PostService } from 'src/app/services/post.service';
 import { MiscData } from 'src/app/shared/misc-data';
+import { EditPostComponent } from '../edit-post/edit-post.component';
 
 
 @Component({
@@ -31,7 +33,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   users: UserData[] = [];
   subscriptions: Subscription[] = [];
 
-  constructor(private postService: PostService, private authService: AuthService, private titleService: Title) { }
+  constructor(private postService: PostService,
+    private authService: AuthService,
+    private titleService: Title,
+    private editPostModal: NgbModal) { }
 
   ngOnInit(): void {
 
@@ -160,6 +165,40 @@ export class HomeComponent implements OnInit, OnDestroy {
   deletePost(post: PostData): void {
     console.log("delete " + post.id);
     this.postService.deletePost(post.id);
+  }
+
+  editPost(post: PostData): void {
+    console.log("edit " + post.id);
+
+    const modal = this.editPostModal.open(EditPostComponent,
+      {
+        scrollable: true,
+        windowClass: 'myCustomModalClass',
+        centered: true,
+        // keyboard: false,
+        backdrop: 'static'
+      });
+
+      // Pass post data to modal
+      modal.componentInstance.post = post;
+
+      modal.result.then((result) => {
+        if (result == null)
+          return;
+        
+        console.log("from modal " + JSON.stringify(result));
+
+        const postText = result.postText;
+        
+        if (postText != null) {
+          console.log(postText);
+          
+          this.postService.updatePost(post.id, postText);
+        }
+      }, (reason) => {
+        // console.log('reason ' + reason);
+      });
+    
   }
 
   logOut() {

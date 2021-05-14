@@ -204,9 +204,9 @@
                         </div>
                         <div class="post-card-header-right" *ngIf="isPostFromUser(p, this.user)">
                             <i class="fas fa-ellipsis-h fa-fw post-card-header-right-edit" [matMenuTriggerFor]="editPostMenu"></i>
-                            <mat-menu #editPostMenu="matMenu" xPosition="before" yPosition="above">
+                            <mat-menu class="test" #editPostMenu="matMenu" xPosition="before" yPosition="above">
                                 <div class="edit-post-menu">
-                                    <div class="edit-post-menu-button" >
+                                    <div class="edit-post-menu-button" (click)="editPost(p)">
                                         <i class="fas fa-pen fa-fw edit-post-menu-icon"></i>
                                         <div class="edit-post-menu-text">
                                             <span class="edit-post-menu-title">Edit post</span>

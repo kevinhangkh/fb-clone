@@ -10,12 +10,21 @@
     src: url('assets/font/klavika-bold.otf') format('truetype');
 }
 
+@font-face {
+    font-family: Segoe-UI;
+    src: url('assets/font/Segoe-UI.ttf') format('truetype');
+}
+
 .roboto {
     font-family: Roboto;
 }
 
 .klavika {
     font-family: Klavika;
+}
+
+.segoe-ui {
+    font-family: Segoe-UI;
 }
 
 :root {

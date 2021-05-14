@@ -671,7 +671,8 @@
 
 ::ng-deep.mat-menu-panel {
     max-width: none !important;
-  }
+    box-shadow: 0px 1px 15px 1px #ccc !important;
+}
 
 .edit-post-menu {
     padding: 0 8px 0 8px;

@@ -79,6 +79,19 @@ export class PostService {
     .then(result => console.log("Deleted post " + postId))
     .catch(err => console.error(err))
    }
+
+   updatePost(postId: string, postText: string): void {
+    
+    this.afs.collection('posts').doc(postId).update({
+      message: postText
+      // time: firebase.default.firestore.FieldValue.serverTimestamp()
+    }).then(() => {
+      console.log("Document successfully updated!");
+    })
+    .catch((error) => {
+        console.error("Error updating document: ", error);
+    });
+  }
 }
 
 export interface PostData {
