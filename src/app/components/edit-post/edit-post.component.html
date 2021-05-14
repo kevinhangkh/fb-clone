@@ -1,0 +1,51 @@
+<div class="edit-post-container">
+    <div class="edit-post-header">
+        <span class="edit-post-header-title">Edit post</span>
+        <span class="edit-post-header-icon" (click)="close(null)"><i class="fas fa-times edit-post-close-btn"></i></span>
+    </div>
+    <mat-divider class="edit-post-divider"></mat-divider>
+    <div class="edit-post-body">
+        <div class="user-info">
+            <img class="user-info-avatar" src="{{post?.avatar}}" alt="{{post.avatar}}" mat-card-avatar>
+            <div class="user-info-title">
+                <span class="user-info-title-name">{{ post?.firstName }} {{ post?.lastName }}</span>
+                <span class="user-info-title-privacy">
+                    <i class="fas fa-globe-europe fa-fw"></i>
+                    Public
+                    <i class="fas fa-caret-down fa-fw"></i>
+                </span>
+            </div>
+        </div>
+        <form class="edit-post-form" [formGroup]="editPostForm">
+            <textarea class="edit-post-form-textarea segoe-ui" name="postText" type="text" formControlName="postText" rows="7"></textarea>
+            <img class="edit-post-toolbar-aa" src="../../../assets/Aa_square.png"/>
+            <i class="far fa-smile fa-fw edit-post-toolbar-emoji" [ngbTooltip]="emojiTip" tooltipClass="edit-post-btn-tip" openDelay="250"></i>
+            <ng-template #emojiTip>Emoji</ng-template>
+        </form>
+        <div class="edit-post-attached">
+            <span class="edit-post-attached-left">Add to your post</span>
+            <span class="edit-post-attached-right">
+                <i class="fas fa-photo-video fa-fw" [ngbTooltip]="photoVideoTip" tooltipClass="edit-post-btn-tip" openDelay="250"></i>
+                <ng-template #photoVideoTip>Photo/Video</ng-template>
+
+                <i class="fas fa-user-tag fa-fw" [ngbTooltip]="tagFriendsTip" tooltipClass="edit-post-btn-tip" openDelay="250"></i>
+                <ng-template #tagFriendsTip>Tag friends</ng-template>
+
+                <i class="far fa-smile fa-fw" [ngbTooltip]="feelingActivityTip" tooltipClass="edit-post-btn-tip" openDelay="250"></i>
+                <ng-template #feelingActivityTip>Feeling/Activity</ng-template>
+
+                <i class="fas fa-map-marker-alt fa-fw" [ngbTooltip]="checkInTip" tooltipClass="edit-post-btn-tip" openDelay="250"></i>
+                <ng-template #checkInTip>Check in</ng-template>
+
+                <i class="fas fa-comment fa-fw" [ngbTooltip]="hostQATip" tooltipClass="edit-post-btn-tip" openDelay="250"></i>
+                <ng-template #hostQATip>Host a Q&A</ng-template>
+
+                <i class="fas fa-ellipsis-h fa-fw" [ngbTooltip]="moreTip" tooltipClass="edit-post-btn-tip" openDelay="250"></i>
+                <ng-template #moreTip>More</ng-template>
+            </span>
+        </div>
+    </div>
+    <div class="edit-post-footer">
+        <button class="edit-post-save-btn" (click)="close(editPostForm)" [disabled]="!isModified()">Save</button>
+    </div>
+</div>

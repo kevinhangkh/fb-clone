@@ -1,0 +1,246 @@
+.edit-post-container {
+    padding: 1rem;
+}
+
+.edit-post-header {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    /* padding: 5px 0 5px 0; */
+    vertical-align: middle;
+    height: 40px;
+    /* justify-content: space-between; */
+    justify-content: center;
+}
+
+.edit-post-header-title {
+    font-size: 20px;
+    font-weight: 500;
+    display: flex;
+    /* justify-content: center;
+    justify-items: center; */
+    text-align: center;
+    align-items: center; /* align vertical */
+    /* width: 90%; */
+}
+
+.edit-post-header-icon {
+    /* text-align: right; */
+    /* width: 10%; */
+    align-items: center;
+    position: absolute;
+    right: 0;
+}
+
+.edit-post-close-btn {
+    font-size: 18px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    vertical-align: middle;
+    background-color: #e6e7e9;
+
+    cursor: pointer;
+}
+
+.edit-post-close-btn:hover {
+    background-color: #dddddd;
+}
+
+.edit-post-divider {
+    margin: 10px -1rem 0 -1rem;
+}
+
+.edit-post-body {
+    padding-top: 10px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.user-info-avatar {
+    height: 50px;
+    width: 50px;
+    border: 1px solid #dbdcdf;
+    cursor: pointer;
+}
+
+.user-info-title {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: center;
+}
+
+.user-info-title-name {
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.user-info-title-privacy {
+    background-color: #e6e7e9;
+    border-radius: 7px;
+    padding: 3px 4px 3px;
+    font-weight: 500;
+    width: fit-content;
+    cursor: pointer;
+}
+
+.edit-post-form {
+    margin: 10px 0 10px;
+    position: relative;
+}
+
+.edit-post-form-textarea {
+    resize: none;
+    border-style: none; 
+    border-color: Transparent; 
+    outline: none;
+
+    width: 100%;
+    max-width: 100%;
+
+    font-size: 24px;
+    line-height: 27px;
+}
+
+.edit-post-toolbar-aa {
+    position: absolute;
+    bottom: 5px;
+    left: 0px;
+
+    width: 38px;
+    height: 38px;
+
+    cursor: pointer;
+}
+
+.edit-post-toolbar-emoji {
+    position: absolute;
+    right: 5px;
+    bottom: 10px;
+
+    font-size: 22px;
+
+    color: #bebebe;
+    cursor: pointer;
+}
+
+.edit-post-toolbar-emoji:hover {
+    color: #a0a0a0;
+}
+
+.edit-post-attached {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    border-radius: 7px;
+    border: 1px solid #bebebe;
+    padding: 5px;
+}
+
+.edit-post-attached-left {
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 1em;
+    display: inline-flex;
+    align-items: center;
+    /* justify-content: center; */
+    margin: 0 10px 0;
+    cursor: pointer;
+}
+
+.edit-post-attached-right {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.edit-post-attached-right > i {
+    font-size: 22px;
+    cursor: pointer;
+
+    /* padding: 10px; */
+    border-radius: 50%;
+    line-height: 35px;
+    height: 35px;
+    width: 35px;
+    justify-content: center;
+    text-align: center;
+}
+
+.edit-post-attached-right > i:hover {
+    background-color: #ececec;
+}
+
+.fa-photo-video {
+    color: #45bd62;
+}
+
+.fa-user-tag {
+    color: var(--fb-color);
+}
+
+.edit-post-attached-right > .fa-smile {
+    color: #f7b928;
+}
+
+.fa-map-marker-alt {
+    color: #f5533d;
+}
+
+.fa-comment {
+    color: #f02849;
+}
+
+.fa-ellipsis-h {
+    color: #606770;
+}
+
+.edit-post-footer {
+    padding-top: 1rem;
+}
+
+::ng-deep .edit-post-btn-tip .tooltip-inner {
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.884);
+    text-align: left;
+    font-size: 14px;
+    margin-bottom: -5px;
+}
+
+::ng-deep .edit-post-btn-tip .arrow::before {
+    display: none;
+}
+
+.edit-post-save-btn {
+    /* display: flex;
+    align-content: center;
+    justify-content: center; */
+    display: block;
+    width: 100%;
+
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
+
+    border-radius: 7px;
+    border: none;
+    outline: none;
+    padding: 10px;
+    background-color: var(--fb-color);
+    cursor: pointer;
+}
+
+.edit-post-save-btn:disabled {
+    color: #bcc0c4;
+    background-color: #e4e6eb;
+    cursor: not-allowed;
+}
