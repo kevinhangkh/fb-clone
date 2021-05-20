@@ -18,6 +18,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { NgDatePipesModule } from 'ngx-pipes';
 import { EditPostComponent } from './components/edit-post/edit-post.component';
+import { ContactListComponent } from './components/contact-list/contact-list.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { EditPostComponent } from './components/edit-post/edit-post.component';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    EditPostComponent
+    EditPostComponent,
+    ContactListComponent
   ],
   imports: [
     BrowserModule,

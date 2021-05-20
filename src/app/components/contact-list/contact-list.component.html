@@ -1,0 +1,38 @@
+<div class="contacts">
+    <div class="contacts-title">
+        <span class="contacts-text">Contacts</span>
+        <span class="contacts-icons">
+            <i class="fas fa-video fa-fw contacts-icon"></i>
+            <i class="fas fa-search fa-fw contacts-icon"></i>
+            <i class="fas fa-ellipsis-h fa-fw contacts-icon"></i>
+        </span>
+    </div>
+    <div class="contact-list-container">
+        <div *ngFor="let u of users" class="contact-list">
+            <!-- Skip the current user so it doesn't display in the list of contacts -->
+            <div class="contact" *ngIf="currentUser.id != u.id">
+                <img [src]="u?.avatar" alt="{{ u?.avatar }}" mat-card-avatar>
+                <span class="name">{{ u?.firstName }} {{ u?.lastName }}</span>
+            </div>
+            <!-- Wrapper for contact list -->
+            <div class="contact-card-tooltip-wrapper">
+                <mat-card class="contact-card-tooltip">
+                    <div class="contact-card-tooltip-left">
+                        <img class="contact-card-tooltip-avatar" [src]="u?.avatar" alt="{{ u?.avatar }}" mat-card-avatar>
+                    </div>
+                    <div class="contact-card-tooltip-right">
+                        <span class="contact-card-tooltip-name">{{ u?.firstName }} {{ u?.lastName }}</span>
+                        <div class="contact-card-tooltip-info">
+                            <i class="fas fa-user-friends fa-fw contact-card-tooltip-icon"></i>
+                            <span class="contact-card-tooltip-friends-with">
+                                {{ u?.mutualFriends }} mutual friends including <span class="bold-text">Omar Little</span> and <span class="bold-text">Jimmy McNulty</span>
+                            </span>
+                            <i class="fas fa-graduation-cap fa-fw contact-card-tooltip-icon"></i>
+                            <span class="contact-card-tooltip-studied">Studied at<br><span class="bold-text">{{ u?.school }}</span></span>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>

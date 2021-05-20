@@ -1,0 +1,157 @@
+.contacts {
+    display: flex;
+    flex-direction: column;
+    /* gap: 10px; */
+    /* width: 250px; */
+    height: 100vh;
+}
+
+.contacts-title {
+    display: inline;
+    height: 3rem;
+    /* justify-content: center;
+    text-align: center; */
+    /* padding-top: 5px;
+    padding-bottom: 5px; */
+    line-height: 3rem;
+    white-space: nowrap;
+}
+
+.contacts-text {
+    float: left;
+    font-size: large;
+    font-weight: 500;
+    color: #65676B;
+}
+
+.contacts-icons {
+    /* justify-content: center; */
+    float: right;
+    /* display: flex;
+    flex-direction: row;
+    gap: 10px; */
+    /* height: 20px; */
+    /* margin-top: 17px; */
+    /* margin-bottom: 5px; */
+    color: #65676B;
+}
+
+.contacts-icon {
+    margin: 5px;
+
+    padding: 7px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 14px;
+    vertical-align: middle;
+
+    cursor: pointer;
+}
+
+.contacts-icon:hover {
+   background-color: #dbdcdf; 
+}
+
+.contact-list-container {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    
+}
+
+.contact-list {
+    /* position: relative; */
+}
+
+.contact {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+
+    border-radius: 10px;
+    /* padding: 10px; */
+    padding: 5px 0 5px 5px;
+    cursor: pointer;
+}
+
+.contact:hover {
+    background-color: #dbdcdf;
+}
+
+.contact-card-tooltip-wrapper {
+    display: none;
+    position: absolute;
+
+    z-index: 100;
+    left: -310px;
+    top: 0px;
+}
+
+.contact-card-tooltip {
+    /* display: none; */
+
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 300px;
+    /* height: 190px; */
+}
+
+.contact:hover ~ .contact-card-tooltip-wrapper {
+    /* display: flex; */
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    
+    /* position: absolute; */
+    /* z-index: 100; */
+    /* left: -310px;
+    top: -50px; */
+}
+
+.contact:hover ~ .contact-card-tooltip-wrapper ~ .contact-card-tooltip{
+     display: flex;
+     flex-direction: row;
+    gap: 20px;
+    width: 300px;
+}
+
+.contact-card-tooltip-avatar {
+    height: 70px;
+    width: 70px;
+    border: 1px solid #dbdcdf;
+}
+
+.contact-card-tooltip-right {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contact-card-tooltip-name {
+    font-size: 20px;
+    font-weight: 500;
+
+}
+
+.contact-card-tooltip-info {
+    display: grid;
+    grid-template-columns: 25px 1fr;
+    /* align-items: stretch; */
+    column-gap: 10px;
+    row-gap: 10px;
+    /* flex-direction: column; */
+}
+
+.bold-text {
+    font-weight: 500;
+}
+
+.contact-card-tooltip-icon {
+    /* align-self: center; */
+    padding-top: 8px;
+    font-size: 18px;
+    color: #65676B;
+}

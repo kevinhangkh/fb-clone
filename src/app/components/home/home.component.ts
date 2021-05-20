@@ -8,6 +8,8 @@ import { AuthService, UserData } from 'src/app/services/auth.service';
 import { PostData, PostService } from 'src/app/services/post.service';
 import { MiscData } from 'src/app/shared/misc-data';
 import { EditPostComponent } from '../edit-post/edit-post.component';
+import { ContactListComponent } from '../contact-list/contact-list.component';
+import * as $ from "jquery";
 
 
 @Component({
@@ -57,6 +59,27 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     // console.log(this.users);
 
+
+    // $(document).ready(function() {
+    //   console.log('functionnnnnnnnn');
+      
+    //   // whenever we hover over a menu item that has a submenu
+    //   $('contact').on('mouseover', function() {
+        
+    //   console.log('functionnnnnnnnn22222222222');
+    //     var $menuItem = $(this),
+    //         $submenuWrapper = $('> .contact-card-tooltip-wrapper', $menuItem);
+        
+    //     // grab the menu item's position relative to its positioned parent
+    //     var menuItemPos = $menuItem.position();
+        
+    //     // place the submenu in the correct position relevant to the menu item
+    //     $submenuWrapper.css({
+    //       top: menuItemPos.top,
+    //       left: menuItemPos.left - Math.round($menuItem.outerWidth() * 0.75)
+    //     });
+    //   });
+    // });
     
   }
 
@@ -99,7 +122,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
     }
 
-    console.log(stories);
+    // console.log(stories);
     
     return stories;
   }

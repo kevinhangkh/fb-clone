@@ -258,20 +258,6 @@
                         </div>
                     </mat-card-footer>
                 </mat-card>
-                
-                <!-- <mat-card class="post" >
-                    <mat-card-header class="post-card-header">
-                        <img src="../../../assets/buzz_lightyear.jpg" alt="avatar" mat-card-avatar>
-                        <div class="post-name">Name</div>
-                    </mat-card-header>
-                    <mat-card-content class="post-card-body">
-                        <div class="post-text">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. <br>
-                            Aliquid minus, optio ullam modi expedita odit amet asperiores possimus culpa? <br>
-                            Culpa error dolor ipsa corporis ex exercitationem, incidunt esse est veritatis.
-                        </div>
-                    </mat-card-content>
-                </mat-card> -->
             </div>
 
         </div>
@@ -279,42 +265,7 @@
         <!-- CONTACT LIST -->
         
         <div class="home-body-right">
-
-            <div class="contacts">
-                <div class="contacts-title">
-                    <span class="contacts-text">Contacts</span>
-                    <span class="contacts-icons">
-                        <i class="fas fa-video fa-fw contacts-icon"></i>
-                        <i class="fas fa-search fa-fw contacts-icon"></i>
-                        <i class="fas fa-ellipsis-h fa-fw contacts-icon"></i>
-                    </span>
-                </div>
-                <div *ngFor="let u of users" class="contact-list">
-                    <!-- Skip the current user so it doesn't display in the list of contacts -->
-                    <div class="contact" *ngIf="user.id != u.id">
-                        <img [src]="u?.avatar" alt="{{ u?.avatar }}" mat-card-avatar>
-                        <span class="name">{{ u?.firstName }} {{ u?.lastName }}</span>
-                    </div>
-                    <mat-card class="contact-card-tooltip">
-                        <div class="contact-card-tooltip-left">
-                            <img class="contact-card-tooltip-avatar" [src]="u?.avatar" alt="{{ u?.avatar }}" mat-card-avatar>
-                        </div>
-                        <div class="contact-card-tooltip-right">
-                            <span class="contact-card-tooltip-name">{{ u?.firstName }} {{ u?.lastName }}</span>
-                            <div class="contact-card-tooltip-info">
-                                <i class="fas fa-user-friends fa-fw contact-card-tooltip-icon"></i>
-                                <span class="contact-card-tooltip-friends-with">
-                                    {{ u?.mutualFriends }} mutual friends including <span class="bold-text">Omar Little</span> and <span class="bold-text">Jimmy McNulty</span>
-                                </span>
-                                <i class="fas fa-graduation-cap fa-fw contact-card-tooltip-icon"></i>
-                                <span class="contact-card-tooltip-studied">Studied at<br><span class="bold-text">{{ u?.school }}</span></span>
-                            </div>
-                        </div>
-                    </mat-card>
-                </div>
-            </div>
-
-            
+            <app-contact-list [users]="users" [currentUser]="user"></app-contact-list>
         </div>
 
         <div class="new-message">

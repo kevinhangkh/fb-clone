@@ -30,6 +30,10 @@
     - [x] Modal
     - [x] Backend
 - [ ] Right body: add mock sections (birthdays, events...)
+- [x] Right body: contact overflow y
+    - [x] Overflow
+    - [x] Move contact list to a new component
+    - [x] Display contact tooltip correctly out of scrollable using javascript
 - [x] Right body: add New message bottom right button
 
 
