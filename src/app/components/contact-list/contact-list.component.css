@@ -55,10 +55,17 @@
 }
 
 .contact-list-container {
-    overflow-y: scroll;
+    overflow-y: hidden;
     overflow-x: hidden;
-    
 }
+
+.contact-list-container:hover {
+    overflow-y: scroll;
+
+    scrollbar-width: thin;
+    scrollbar-color: #cacaca #dfdfdf;
+}
+
 
 .contact-list {
     /* position: relative; */

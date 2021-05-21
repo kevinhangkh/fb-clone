@@ -25,16 +25,21 @@
         - [x] Like button animation
 - [ ] Mid body: Comment post feature
     - [ ] Think about database architecture
+    - [ ] This ain't gonna be easy
 - [x] Mid body: Delete post feature
 - [x] Mid body: Edit post feature
     - [x] Modal
     - [x] Backend
+- [ ] Mid body: post pictures and embed youtube links
 - [ ] Right body: add mock sections (birthdays, events...)
 - [x] Right body: contact overflow y
     - [x] Overflow
     - [x] Move contact list to a new component
     - [x] Display contact tooltip correctly out of scrollable using javascript
+    - [x] Show scrollbar when hovered
 - [x] Right body: add New message bottom right button
+- [ ] Left & Right body: get rid of that small scrolling when browsing posts
+
 
 
 # FbClone
