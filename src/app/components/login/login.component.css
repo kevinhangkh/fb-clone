@@ -64,12 +64,15 @@ h2 {
     padding: 5px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .login-form {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 100%;
 }
 
 input {
@@ -77,6 +80,7 @@ input {
     border: 1px solid lightgrey;
     border-radius: 5px;
     outline: none;
+    
 }
 
 input:focus {
@@ -128,13 +132,13 @@ input::placeholder {
 
 .forgot-password-link {
     text-decoration-line: none;
-    color: #1877f2
-    ;
+    color: #1877f2;
     font-weight: 500;
     margin-top: 20px;
     margin-bottom: 20px;
     text-align: center;
     cursor: pointer;
+    width: fit-content;
 }
 
 /* Tooltip renderer */
@@ -164,6 +168,7 @@ hr {
     font-weight: 500;
     font-size: medium;
     cursor: pointer;
+    /* width: 100%; */
 }
 
 .create-page {
