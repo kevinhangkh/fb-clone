@@ -1,6 +1,6 @@
 <div class="edit-post-container">
     <div class="edit-post-header">
-        <span class="edit-post-header-title">Edit post</span>
+        <span class="edit-post-header-title">{{ title }}</span>
         <span class="edit-post-header-icon" (click)="close(null)"><i class="fas fa-times edit-post-close-btn"></i></span>
     </div>
     <mat-divider class="edit-post-divider"></mat-divider>
@@ -46,6 +46,6 @@
         </div>
     </div>
     <div class="edit-post-footer">
-        <button class="edit-post-save-btn" (click)="close(editPostForm)" [disabled]="!isModified()">Save</button>
+        <button class="edit-post-save-btn" (click)="close(editPostForm)" [disabled]="!isModified()">{{ btnLabel }}</button>
     </div>
 </div>

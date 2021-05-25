@@ -13,16 +13,29 @@ export class EditPostComponent implements OnInit {
     postText: new FormControl(null, Validators.required)
   });
 
-  @Input() post;
+  static readonly POST_CREATE: number = 1;
+  static readonly POST_EDIT: number = 2;
+  static readonly TITLE_CREATE: string = "Create post";
+  static readonly TITLE_EDIT: string = "Edit post";
+  static readonly BTN_CREATE: string = "Post";
+  static readonly BTN_EDIT: string = "Save";
 
+  @Input() type; //Post or Edit
+  @Input() post; //If Edit, get the post message
+
+  title: string = '';
+  btnLabel: string = '';
   private messageOriginal;
 
-  constructor(public activeModal: NgbActiveModal) { }
+  constructor(public activeModal: NgbActiveModal) {}
 
   ngOnInit(): void {
     console.log(this.post);
     this.messageOriginal = this.post.message;
     this.editPostForm.get("postText").setValue(this.post.message);
+
+    this.title = this.type == EditPostComponent.POST_CREATE ? EditPostComponent.TITLE_CREATE : EditPostComponent.TITLE_EDIT;
+    this.btnLabel = this.type == EditPostComponent.POST_CREATE ? EditPostComponent.BTN_CREATE : EditPostComponent.BTN_EDIT;
   }
 
   isModified(): boolean {

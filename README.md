@@ -30,7 +30,10 @@
 - [x] Mid body: Edit post feature
     - [x] Modal
     - [x] Backend
+- [x] Mid body: Create post modal
+    - [x] Re-use edit post modal
 - [ ] Mid body: post pictures and embed youtube links
+- [x] Mid body: Display line breaks in posts
 - [ ] Right body: add mock sections (birthdays, events...)
 - [x] Right body: contact overflow y
     - [x] Overflow

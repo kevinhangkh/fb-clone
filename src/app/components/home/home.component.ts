@@ -190,6 +190,52 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.postService.deletePost(post.id);
   }
 
+  createPost(): void {
+    console.log("create post");
+    
+    let post: PostData = {
+      avatar: this.user.avatar,
+      firstName: this.user.firstName,
+      lastName: this.user.lastName,
+      likes: [],
+      message: "",
+      title: this.user.firstName + this.user.lastName,
+      user_id: this.user.id
+    }
+    
+    const modal = this.editPostModal.open(EditPostComponent,
+      {
+        scrollable: true,
+        windowClass: 'myCustomModalClass',
+        centered: true,
+        // keyboard: false,
+        backdrop: 'static'
+      });
+
+      // Pass type CREATE
+      modal.componentInstance.type = EditPostComponent.POST_CREATE;
+      // Pass post data to modal
+      modal.componentInstance.post = post;
+
+      modal.result.then((result) => {
+        if (result == null)
+          return;
+        
+        console.log("from modal " + JSON.stringify(result));
+
+        const postText = result.postText;
+        
+        if (postText != null) {
+          console.log(postText);
+          
+          post.message = postText;
+          this.postService.postMessage(post);
+        }
+      }, (reason) => {
+        // console.log('reason ' + reason);
+      });
+  }
+
   editPost(post: PostData): void {
     console.log("edit " + post.id);
 
@@ -202,6 +248,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         backdrop: 'static'
       });
 
+      // Pass type EDIT
+      modal.componentInstance.type = EditPostComponent.POST_EDIT;
       // Pass post data to modal
       modal.componentInstance.post = post;
 
