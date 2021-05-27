@@ -32,7 +32,18 @@
     - [x] Backend
 - [x] Mid body: Create post modal
     - [x] Re-use edit post modal
-- [ ] Mid body: post pictures and embed youtube links
+- [ ] Mid body: post pictures
+    - [x] Create post w/ pic
+        - [x] Upload to firebase storage
+    - [ ] Edit post w/ pic
+        - [ ] Add pic
+        - [ ] Change pic
+            - [ ] Upload new pic and delete old
+        - [ ] Remove pic
+    - [ ] Delete post w/ pic
+        - [ ] Remove pic from firebase storage
+    - [ ] Show pics in post list
+- [ ] Mid body: Embed youtube links
 - [x] Mid body: Display line breaks in posts
 - [ ] Right body: add mock sections (birthdays, events...)
 - [x] Right body: contact overflow y

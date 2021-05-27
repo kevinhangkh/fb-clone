@@ -16,16 +16,28 @@
                 </span>
             </div>
         </div>
-        <form class="edit-post-form" [formGroup]="editPostForm">
-            <textarea class="edit-post-form-textarea segoe-ui" name="postText" type="text" formControlName="postText" rows="7"></textarea>
+        <div class="edit-post-scrollable">
+            <div class="edit-post-toolbar">
+                <i class="far fa-smile fa-fw edit-post-toolbar-emoji emoji-pos-img" *ngIf="isImage()" ></i>
+            </div>
+            <form class="edit-post-form" [formGroup]="editPostForm">
+                <textarea class="edit-post-form-textarea segoe-ui" [ngClass]="isImage() ? 'textarea-img' : 'textarea-no-img'" name="postText" type="text" formControlName="postText"></textarea>
+                <div class="edit-post-image-wrapper">
+                    <i class="fas fa-times image-delete" *ngIf="isImage()" (click)="clearImage()"></i>
+                    <img [src]="imgSrc" class="edit-post-image-preview" *ngIf="isImage()" width="100%" height="auto">
+                    <input type="file" accept="image/png, image/jpeg" name="imageSrc" formControlName="imageSrc" (change)="showPreview($event)" #imgUploader style="display: none; visibility: hidden;">
+                </div>
+            </form>
+        </div>
+        <div class="edit-post-toolbar">
             <img class="edit-post-toolbar-aa" src="../../../assets/Aa_square.png"/>
-            <i class="far fa-smile fa-fw edit-post-toolbar-emoji" [ngbTooltip]="emojiTip" tooltipClass="edit-post-btn-tip" openDelay="250"></i>
+            <i class="far fa-smile fa-fw edit-post-toolbar-emoji emoji-pos-no-img" *ngIf="!isImage()" [ngbTooltip]="emojiTip" tooltipClass="edit-post-btn-tip" openDelay="250"></i>
             <ng-template #emojiTip>Emoji</ng-template>
-        </form>
+        </div>
         <div class="edit-post-attached">
             <span class="edit-post-attached-left">Add to your post</span>
             <span class="edit-post-attached-right">
-                <i class="fas fa-photo-video fa-fw" [ngbTooltip]="photoVideoTip" tooltipClass="edit-post-btn-tip" openDelay="250"></i>
+                <i class="fas fa-photo-video fa-fw" [ngbTooltip]="photoVideoTip" tooltipClass="edit-post-btn-tip" openDelay="250" (click)="imgUploader.click()"></i>
                 <ng-template #photoVideoTip>Photo/Video</ng-template>
 
                 <i class="fas fa-user-tag fa-fw" [ngbTooltip]="tagFriendsTip" tooltipClass="edit-post-btn-tip" openDelay="250"></i>

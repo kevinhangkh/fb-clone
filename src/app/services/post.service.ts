@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireStorage } from '@angular/fire/storage';
 import { User } from '@firebase/auth-types';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, finalize } from 'rxjs/operators';
 import * as firebase from 'firebase';
 
 @Injectable({
@@ -12,8 +13,9 @@ import * as firebase from 'firebase';
 export class PostService {
 
   currentUser: User;
+  basePath: string = '/images';
 
-  constructor(private afs: AngularFirestore, private afa: AngularFireAuth) { 
+  constructor(private afs: AngularFirestore, private afa: AngularFireAuth, private storage: AngularFireStorage) { 
     this.afa.authState.subscribe(user => {this.currentUser = user});
    }
 
@@ -33,25 +35,50 @@ export class PostService {
    }
 
   //  postMessage(message: string, ownerName: string, otherItems): void {
-    postMessage(post: PostData): void {
+    postMessage(post: PostData, postImage: File): void {
+
+      // console.log("postMessage");
+      // console.log(postImage);
 
       post.time = firebase.default.firestore.FieldValue.serverTimestamp();
 
-      this.afs.collection('posts').add(post)
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+      if (postImage) {
 
-    // this.afs.collection('posts').add({
-    //   message,
-    //   title: ownerName,
-    //   user_id: this.currentUser.uid,
-    //   time: firebase.default.firestore.FieldValue.serverTimestamp(),
-    //   likes: [],
-    //   ...otherItems
-    // }).then(res => console.log(res)).catch(err => console.log(err))
-    // ;
-    
+        //Upload image
+        const fileName = `${postImage.name}_${new Date().getTime()}`;
+        const filePath = `${this.basePath}/${fileName}`;
+        const storageRef = this.storage.ref(filePath);
+        const uploadTask = this.storage.upload(filePath, postImage);
+
+        uploadTask.snapshotChanges().pipe(
+          finalize(() => {
+            storageRef.getDownloadURL().subscribe(downloadURL => {
+              post.imageUrl = downloadURL;
+              post.imageName = fileName;
+              // this.saveFileData(fileUpload);
+
+              //Create post in Firebase with link to image
+              this.afs.collection('posts').add(post)
+              .then(res => console.log(res))
+              .catch(err => console.log(err));
+
+            });
+          })
+        ).subscribe(res => {
+          if ("success" === res.state)
+            console.log("Uploaded file successfully!");
+        });
+
+      }
+      else {
+        
+        //Create post in Firebase without image
+        this.afs.collection('posts').add(post)
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
+      }
    }
+   
 
    dislikePost(postId: string, userId: string): void {
     
@@ -103,5 +130,7 @@ export interface PostData {
   time?: {},
   title: string,
   user_id: string,
+  imageUrl?: string,
+  imageName?: string,
   id?: string
 }

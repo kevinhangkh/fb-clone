@@ -14,6 +14,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { HomeComponent } from './components/home/home.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { NgDatePipesModule } from 'ngx-pipes';
@@ -42,6 +43,7 @@ import { ContactListComponent } from './components/contact-list/contact-list.com
     NgbModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
+    AngularFireStorageModule,
     AngularFireAuthModule,
     NgDatePipesModule,
   ],

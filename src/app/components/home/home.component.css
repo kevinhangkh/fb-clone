@@ -641,11 +641,13 @@
     /* margin: 10px 0 10px 0; */
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    /* gap: 15px; */
+    padding: 16px 0 16px;
 }
 
 .post-card-header {
     position: relative;
+    padding: 0 16px 0;
     /* display: flex;
     flex-direction: row; */
     /* vertical-align: middle; */
@@ -659,7 +661,7 @@
 
 .post-card-header-right {
     position: absolute;
-    right: 0;
+    right: 16px;
 
     /* vertically align if the element is of unknown height*/
     top: 50%;
@@ -772,11 +774,18 @@
 
 .post-card-body {
     margin: 0;
+    padding: 0;
 }
 
 .post-text {
     white-space: pre-line; /* Keeps \n and other white space formatting */
     font-size: 15px;
+    padding: 16px;
+}
+
+.post-image {
+    border-top: 1px solid #cacaca;
+    border-bottom: 1px solid #cacaca;
 }
 
 .post-card-footer {
@@ -785,7 +794,8 @@
 
 .post-likes {
     /* padding-top: 5px; */
-    padding-bottom: 15px;
+    padding: 16px;
+    /* padding-bottom: 15px; */
     /* display: grid; */
     /* grid-template-columns: repeat(2,1fr); */
     display: flex;

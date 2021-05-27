@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import * as $ from "jquery";
+import { PostData } from 'src/app/services/post.service';
 
 @Component({
   selector: 'app-edit-post',
@@ -10,7 +12,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class EditPostComponent implements OnInit {
 
   editPostForm = new FormGroup({
-    postText: new FormControl(null, Validators.required)
+    postText: new FormControl(null, Validators.required),
+    imageSrc: new FormControl(null)
   });
 
   static readonly POST_CREATE: number = 1;
@@ -26,20 +29,106 @@ export class EditPostComponent implements OnInit {
   title: string = '';
   btnLabel: string = '';
   private messageOriginal;
+  private imgSrc: string = '';
+  selectedImage: any = null;
+
+  postData: {msg: string, image?: File} = {msg: null};
 
   constructor(public activeModal: NgbActiveModal) {}
 
   ngOnInit(): void {
-    console.log(this.post);
+    // console.log(this.post);
     this.messageOriginal = this.post.message;
     this.editPostForm.get("postText").setValue(this.post.message);
 
     this.title = this.type == EditPostComponent.POST_CREATE ? EditPostComponent.TITLE_CREATE : EditPostComponent.TITLE_EDIT;
     this.btnLabel = this.type == EditPostComponent.POST_CREATE ? EditPostComponent.BTN_CREATE : EditPostComponent.BTN_EDIT;
+
+    if (this.type == EditPostComponent.POST_CREATE) {
+      $(".edit-post-form-textarea").attr("placeholder", "What's on your mind?");
+    }
   }
+
 
   isModified(): boolean {
     return this.editPostForm.get("postText").value !== this.messageOriginal;
+  }
+
+  isImage(): boolean {
+    return this.imgSrc !== '';
+  }
+
+  showPreview(event: any): void {
+    //Check if contains a file
+    if (event.target.files && event.target.files[0]) {
+
+      const reader = new FileReader();
+      reader.onload = (e: any) => this.imgSrc = e.target.result;
+      //////----------------------------------------------------------------------------TODO: CHECK FILE MIME TYPE----------------------------------------------------------------------------
+
+      // reader.onloadend = (e: any) => {
+
+        // var arr = (new Uint8Array(e.target.result)).subarray(0, 4);
+        // console.log(arr);
+        
+        // var header = "";
+        // for(var i = 0; i < arr.length; i++) {
+        //   header += arr[i].toString(16);
+        // }
+        // console.log(header);
+
+        // //Actual MIME type check
+        // var type;
+        // switch (header) {
+        //   case "89504e47":
+        //       type = "image/png";
+        //       break;
+        //   case "47494638":
+        //       type = "image/gif";
+        //       break;
+        //   case "ffd8ffe0":
+        //   case "ffd8ffe1":
+        //   case "ffd8ffe2":
+        //   case "ffd8ffe3":
+        //   case "ffd8ffe8":
+        //       type = "image/jpeg";
+        //       break;
+        //   default:
+        //       type = "unknown"; // Or you can use the blob.type as fallback
+        //       break;
+        // }
+
+        // console.log(type);
+        
+      // };
+
+
+      reader.readAsDataURL(event.target.files[0]);
+      this.selectedImage = event.target.files[0];
+
+      console.log(this.selectedImage);
+      this.postData.image = event.target.files[0];
+
+      //Hide Aa button
+      $(".edit-post-toolbar-aa").css("display","none");
+      //Increase height of scrollable
+      $(".edit-post-scrollable").css("height","400px");
+    }
+    else {
+      this.imgSrc = '';
+      this.selectedImage = null;
+    }
+  }
+
+  clearImage(): void {
+    this.imgSrc = '';
+    this.selectedImage = null;
+    this.postData.image = null;
+
+    //Hide Aa button
+    $(".edit-post-toolbar-aa").css("display","block");
+    //Increase height of scrollable
+    $(".edit-post-scrollable").css("height","195px");
   }
 
   close(sendData) {
@@ -48,8 +137,13 @@ export class EditPostComponent implements OnInit {
       this.activeModal.close();
       return;
     }
-    console.log("closed " + sendData.value);
-    this.activeModal.close(sendData.value);
+
+    this.postData.msg = sendData.value.postText;
+
+    console.log("closed " + JSON.stringify(this.postData));
+    console.log(this.postData.image);
+    
+    this.activeModal.close(this.postData);
   }
 
 }

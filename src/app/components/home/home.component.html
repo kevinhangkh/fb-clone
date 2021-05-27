@@ -223,6 +223,10 @@
                     <mat-card-content class="post-card-body">
                         <div class="post-text">
                             {{ p?.message }}
+                            <!-- {{ p | json }} -->
+                        </div>
+                        <div class="post-image">
+                            <img [src]="p?.imageUrl" [alt]="p?.imageName" width="100%" height="auto">
                         </div>
                     </mat-card-content>
                     <mat-card-footer class="post-card-footer">

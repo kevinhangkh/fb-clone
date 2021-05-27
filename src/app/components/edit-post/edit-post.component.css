@@ -61,6 +61,7 @@
     display: flex;
     flex-direction: row;
     gap: 10px;
+    margin-bottom: 10px;
 }
 
 .user-info-avatar {
@@ -91,6 +92,22 @@
     cursor: pointer;
 }
 
+.edit-post-scrollable {
+    /* padding-bottom: 10px; */
+    height: 195px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    scroll-padding-right: 10px;
+}
+
+.edit-post-scrollable:hover {
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    scrollbar-width: thin;
+    scrollbar-color: #cacaca #dfdfdf;
+}
+
 .edit-post-form {
     margin: 10px 0 10px;
     position: relative;
@@ -104,9 +121,55 @@
 
     width: 100%;
     max-width: 100%;
+}
 
+.edit-post-image-wrapper {
+    position: relative;
+}
+
+.image-delete {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    z-index: 100;
+
+    font-size: 14px;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    vertical-align: middle;
+    background-color: #ffffff;
+    border: 1px solid #cacaca;
+
+    cursor: pointer;
+}
+
+.edit-post-image-preview {
+    border: 1px solid #cacaca;
+    border-radius: 7px;
+    filter: brightness(1);
+}
+
+.edit-post-image-preview:hover {
+    filter: brightness(0.9);
+}
+
+.textarea-no-img {
+    height: 7em;
     font-size: 24px;
     line-height: 27px;
+}
+
+.textarea-img {
+    height: 3em;
+    font-size: 16px;
+    line-height: 19px;
+}
+
+.edit-post-toolbar {
+    position: relative;
 }
 
 .edit-post-toolbar-aa {
@@ -122,17 +185,28 @@
 
 .edit-post-toolbar-emoji {
     position: absolute;
-    right: 5px;
-    bottom: 10px;
+    /* right: 5px;
+    bottom: 10px; */
 
     font-size: 22px;
 
     color: #bebebe;
     cursor: pointer;
+    z-index: 100;
 }
 
 .edit-post-toolbar-emoji:hover {
     color: #a0a0a0;
+}
+
+.emoji-pos-img {
+    right: 5px;
+    top: 10px;
+}
+
+.emoji-pos-no-img {
+    right: 5px;
+    bottom: 10px;
 }
 
 .edit-post-attached {
@@ -143,6 +217,7 @@
     border-radius: 7px;
     border: 1px solid #bebebe;
     padding: 5px;
+    margin-top: 10px;
 }
 
 .edit-post-attached-left {

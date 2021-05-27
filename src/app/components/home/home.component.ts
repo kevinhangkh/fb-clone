@@ -159,7 +159,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     //     firstName: this.user.firstName
     //   });
 
-    this.postService.postMessage(post);
+    this.postService.postMessage(post, null);
 
     form.resetForm();
   }
@@ -223,13 +223,17 @@ export class HomeComponent implements OnInit, OnDestroy {
         
         console.log("from modal " + JSON.stringify(result));
 
-        const postText = result.postText;
+        const postText = result.msg;
+        const postImage = result.image;
+        console.log(postText);
+        console.log(postImage);
         
         if (postText != null) {
           console.log(postText);
           
           post.message = postText;
-          this.postService.postMessage(post);
+          // post.image = postImage;
+          this.postService.postMessage(post, postImage);
         }
       }, (reason) => {
         // console.log('reason ' + reason);
@@ -259,7 +263,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         
         console.log("from modal " + JSON.stringify(result));
 
-        const postText = result.postText;
+        const postText = result.msg;
         
         if (postText != null) {
           console.log(postText);
