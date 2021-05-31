@@ -39,10 +39,12 @@
         - [ ] Add pic
         - [ ] Change pic
             - [ ] Upload new pic and delete old
-        - [ ] Remove pic
-    - [ ] Delete post w/ pic
-        - [ ] Remove pic from firebase storage
+        - [ ] Remove pic but not post
+    - [x] Delete post w/ pic
+        - [x] Remove pic from firebase storage
     - [ ] Show pics in post list
+        - [x] Show pics
+        - [ ] Resize image if height too high
 - [ ] Mid body: Embed youtube links
 - [x] Mid body: Display line breaks in posts
 - [ ] Right body: add mock sections (birthdays, events...)

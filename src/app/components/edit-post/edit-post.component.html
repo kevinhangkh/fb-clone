@@ -1,4 +1,11 @@
 <div class="edit-post-container">
+    <!-- *ngIf="isPosting" -->
+    <div class="posting-overlay" *ngIf="isPosting">
+        <div class="spinner-wrapper">
+            <div class="spinner-border" role="status"></div>
+            <div class="spinner-border-text">Posting</div>
+        </div>
+    </div>
     <div class="edit-post-header">
         <span class="edit-post-header-title">{{ title }}</span>
         <span class="edit-post-header-icon" (click)="close(null)"><i class="fas fa-times edit-post-close-btn"></i></span>
@@ -24,7 +31,7 @@
                 <textarea class="edit-post-form-textarea segoe-ui" [ngClass]="isImage() ? 'textarea-img' : 'textarea-no-img'" name="postText" type="text" formControlName="postText"></textarea>
                 <div class="edit-post-image-wrapper">
                     <i class="fas fa-times image-delete" *ngIf="isImage()" (click)="clearImage()"></i>
-                    <img [src]="imgSrc" class="edit-post-image-preview" *ngIf="isImage()" width="100%" height="auto">
+                    <img [src]="imgSrc" class="edit-post-image-preview" *ngIf="isImage()">
                     <input type="file" accept="image/png, image/jpeg" name="imageSrc" formControlName="imageSrc" (change)="showPreview($event)" #imgUploader style="display: none; visibility: hidden;">
                 </div>
             </form>
@@ -40,7 +47,7 @@
                 <i class="fas fa-photo-video fa-fw" [ngbTooltip]="photoVideoTip" tooltipClass="edit-post-btn-tip" openDelay="250" (click)="imgUploader.click()"></i>
                 <ng-template #photoVideoTip>Photo/Video</ng-template>
 
-                <i class="fas fa-user-tag fa-fw" [ngbTooltip]="tagFriendsTip" tooltipClass="edit-post-btn-tip" openDelay="250"></i>
+                <i class="fas fa-user-tag fa-fw" [ngbTooltip]="tagFriendsTip" tooltipClass="edit-post-btn-tip" openDelay="250" (click)="changePosting()"></i>
                 <ng-template #tagFriendsTip>Tag friends</ng-template>
 
                 <i class="far fa-smile fa-fw" [ngbTooltip]="feelingActivityTip" tooltipClass="edit-post-btn-tip" openDelay="250"></i>

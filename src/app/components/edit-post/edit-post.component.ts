@@ -2,7 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import * as $ from "jquery";
-import { PostData } from 'src/app/services/post.service';
+import { finalize } from 'rxjs/operators';
+import { PostData, PostService } from 'src/app/services/post.service';
 
 @Component({
   selector: 'app-edit-post',
@@ -25,6 +26,7 @@ export class EditPostComponent implements OnInit {
 
   @Input() type; //Post or Edit
   @Input() post; //If Edit, get the post message
+  @Input() user; //Current user
 
   title: string = '';
   btnLabel: string = '';
@@ -33,10 +35,12 @@ export class EditPostComponent implements OnInit {
   selectedImage: any = null;
 
   postData: {msg: string, image?: File} = {msg: null};
+  isPosting: boolean = false;
 
-  constructor(public activeModal: NgbActiveModal) {}
+  constructor(public activeModal: NgbActiveModal, private postService: PostService) {}
 
   ngOnInit(): void {
+
     // console.log(this.post);
     this.messageOriginal = this.post.message;
     this.editPostForm.get("postText").setValue(this.post.message);
@@ -112,7 +116,26 @@ export class EditPostComponent implements OnInit {
       //Hide Aa button
       $(".edit-post-toolbar-aa").css("display","none");
       //Increase height of scrollable
-      $(".edit-post-scrollable").css("height","400px");
+      $(".edit-post-scrollable").css("height","270px");
+
+
+      // $(document).ready(function() {
+
+          
+      //     $(".edit-post-scrollable").on('DOMNodeInserted', '.edit-post-image-preview', function() {
+      //       // var height = this.css("height");
+      //       console.log(this);
+      //       var height = $(this).outerHeight(true);
+      //       var width = $(this).width();
+      //       console.log(height);
+      //       console.log(width);
+            
+      //       if (height > 400) {
+      //         $(".edit-post-scrollable").css("height","300px");
+      //       }
+      //     });
+      // });
+      
     }
     else {
       this.imgSrc = '';
@@ -131,19 +154,71 @@ export class EditPostComponent implements OnInit {
     $(".edit-post-scrollable").css("height","195px");
   }
 
-  close(sendData) {
+  changePosting(): void {
+    this.isPosting = ! this.isPosting;
+  }
+
+  currentlyPosting(): boolean { 
+    return this.isPosting;
+  }
+
+  // postSomething(sendData): void {
+    
+  //   this.isPosting = true;
+  //   console.log(this.isPosting);
+
+  //   setTimeout(() => {
+  //     this.isPosting = false;
+  //     console.log(this.isPosting);
+  //   },5000);
+  // }
+
+  close(sendData): void {
     if (sendData == null) {
       console.log("close no edit");
       this.activeModal.close();
       return;
     }
 
-    this.postData.msg = sendData.value.postText;
+    let post: PostData = {
+      avatar: this.user.avatar,
+      firstName: this.user.firstName,
+      lastName: this.user.lastName,
+      likes: [],
+      message: sendData.value.postText,
+      title: this.user.firstName + this.user.lastName,
+      user_id: this.user.id
+    }
 
-    console.log("closed " + JSON.stringify(this.postData));
-    console.log(this.postData.image);
+    let selectedImage = this.selectedImage != null ? this.selectedImage : null;
+
+    this.isPosting = true;
+    console.log(this.isPosting);
+
+    this.postService.postMessage(post, selectedImage)
+    .pipe(
+      finalize(() => {
+        this.isPosting = false; 
+        console.log(this.isPosting);
+      })
+    )
+    .subscribe(
+      (value) => {
+        console.log(value);
+      },
+      (error) => {
+        console.error(error);
+      },
+      () => {
+        console.log("Post creation complete!");
+        this.isPosting = false;
+        console.log(this.isPosting);
+        this.activeModal.close(null);
+      }
+    );
     
-    this.activeModal.close(this.postData);
+    // this.isPosting = false;
+    // console.log(this.isPosting);
   }
 
 }

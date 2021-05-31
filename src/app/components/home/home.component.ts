@@ -80,6 +80,22 @@ export class HomeComponent implements OnInit, OnDestroy {
     //     });
     //   });
     // });
+
+    // $(document).ready(function() {
+    //   var img = $('.post-image').live();//jQuery class selector
+    //   console.log(img);
+      
+    
+    //   var width = img.width(); //jQuery width method
+    //   var height = img.height(); //jQuery height method
+
+    //   console.log(width);
+    //   console.log(height);
+    
+    //   if(width < height){
+    //      img.addClass('portrait');
+    //   }
+    // });
     
   }
 
@@ -187,7 +203,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   deletePost(post: PostData): void {
     console.log("delete " + post.id);
-    this.postService.deletePost(post.id);
+    this.postService.removePost(post);
   }
 
   createPost(): void {
@@ -208,14 +224,14 @@ export class HomeComponent implements OnInit, OnDestroy {
         scrollable: true,
         windowClass: 'myCustomModalClass',
         centered: true,
-        // keyboard: false,
+        keyboard: false,
         backdrop: 'static'
       });
 
-      // Pass type CREATE
+      // Pass data to modal
       modal.componentInstance.type = EditPostComponent.POST_CREATE;
-      // Pass post data to modal
       modal.componentInstance.post = post;
+      modal.componentInstance.user = this.user;
 
       modal.result.then((result) => {
         if (result == null)
@@ -248,7 +264,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         scrollable: true,
         windowClass: 'myCustomModalClass',
         centered: true,
-        // keyboard: false,
+        keyboard: false,
         backdrop: 'static'
       });
 

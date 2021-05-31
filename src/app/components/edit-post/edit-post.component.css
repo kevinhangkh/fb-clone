@@ -1,5 +1,37 @@
 .edit-post-container {
     padding: 1rem;
+    position: relative;
+}
+
+.posting-overlay {
+    position: absolute; /* Sit on top of the page content */
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(230, 230, 230, 0.6); /* Black background with opacity */
+    z-index: 10;
+
+    display: grid;
+    place-items: center;
+}
+
+.spinner-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.spinner-border {
+    height: 3em;
+    width: 3em;
+}
+
+.spinner-border-text {
+    font-size: large;
 }
 
 .edit-post-header {
@@ -150,6 +182,9 @@
     border: 1px solid #cacaca;
     border-radius: 7px;
     filter: brightness(1);
+
+    width: 100%;
+    height: auto;
 }
 
 .edit-post-image-preview:hover {

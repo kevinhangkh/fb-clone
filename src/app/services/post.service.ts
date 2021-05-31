@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { User } from '@firebase/auth-types';
-import { Observable } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { map, finalize } from 'rxjs/operators';
 import * as firebase from 'firebase';
 
@@ -14,6 +14,7 @@ export class PostService {
 
   currentUser: User;
   basePath: string = '/images';
+  posting: boolean = false;
 
   constructor(private afs: AngularFirestore, private afa: AngularFireAuth, private storage: AngularFireStorage) { 
     this.afa.authState.subscribe(user => {this.currentUser = user});
@@ -34,15 +35,21 @@ export class PostService {
       );
    }
 
-  //  postMessage(message: string, ownerName: string, otherItems): void {
-    postMessage(post: PostData, postImage: File): void {
+  //  isPosting(): Observable<boolean> {
+  //    var subject = new Subject<boolean>();
+  //    this.posting.pipe()
+  //    return ;
+  //  }
 
-      // console.log("postMessage");
-      // console.log(postImage);
+  //  postMessage(message: string, ownerName: string, otherItems): void {
+    postMessage(post: PostData, postImage: any): Observable<any> {
+
+      console.log("postMessage");
+      console.log(postImage);
 
       post.time = firebase.default.firestore.FieldValue.serverTimestamp();
 
-      if (postImage) {
+      if (postImage != null) {
 
         //Upload image
         const fileName = `${postImage.name}_${new Date().getTime()}`;
@@ -50,7 +57,7 @@ export class PostService {
         const storageRef = this.storage.ref(filePath);
         const uploadTask = this.storage.upload(filePath, postImage);
 
-        uploadTask.snapshotChanges().pipe(
+        return uploadTask.snapshotChanges().pipe(
           finalize(() => {
             storageRef.getDownloadURL().subscribe(downloadURL => {
               post.imageUrl = downloadURL;
@@ -64,19 +71,22 @@ export class PostService {
 
             });
           })
-        ).subscribe(res => {
-          if ("success" === res.state)
-            console.log("Uploaded file successfully!");
-        });
-
+        );
       }
       else {
         
         //Create post in Firebase without image
         this.afs.collection('posts').add(post)
-        .then(res => console.log(res))
+        .then(res => {
+          console.log(res);
+          return of(res);
+        })
         .catch(err => console.log(err));
+        
+        return of("Post creation without image complete!");
       }
+
+      
    }
    
 
@@ -100,11 +110,28 @@ export class PostService {
 
    }
 
+   //Removes post and any associated image
+   removePost(post: PostData): void {
+
+    this.deletePost(post.id);
+    if (post.imageName) {
+      this.deleteImage(post.imageName);
+      console.log("Deleted image " + post.imageName);
+    }
+   }
+
+   //Remove post from firebase database
    deletePost(postId: string): void {
 
     this.afs.collection('posts').doc(postId).delete()
     .then(result => console.log("Deleted post " + postId))
-    .catch(err => console.error(err))
+    .catch(err => console.error(err));
+   }
+
+   //Remove image from firebase storage
+   deleteImage(imageName: string): void {
+    const storageRef = this.storage.ref(this.basePath);
+    storageRef.child(imageName).delete();
    }
 
    updatePost(postId: string, postText: string): void {

@@ -225,8 +225,10 @@
                             {{ p?.message }}
                             <!-- {{ p | json }} -->
                         </div>
-                        <div class="post-image">
-                            <img [src]="p?.imageUrl" [alt]="p?.imageName" width="100%" height="auto">
+                        <div class="post-image-wrapper" *ngIf="p?.imageUrl">
+                            <a [href]="p?.imageUrl" target="_blank">
+                                <img class="post-image" [src]="p?.imageUrl" [alt]="p?.imageName">
+                            </a>
                         </div>
                     </mat-card-content>
                     <mat-card-footer class="post-card-footer">
