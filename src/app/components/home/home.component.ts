@@ -272,6 +272,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       modal.componentInstance.type = EditPostComponent.POST_EDIT;
       // Pass post data to modal
       modal.componentInstance.post = post;
+      modal.componentInstance.user = this.user;
 
       modal.result.then((result) => {
         if (result == null)
@@ -284,7 +285,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         if (postText != null) {
           console.log(postText);
           
-          this.postService.updatePost(post.id, postText);
+          // this.postService.updatePost(post.id, postText);
         }
       }, (reason) => {
         // console.log('reason ' + reason);

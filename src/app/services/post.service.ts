@@ -3,9 +3,10 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { User } from '@firebase/auth-types';
-import { Observable, of, Subject } from 'rxjs';
+import { Observable, of, from, observable, forkJoin } from 'rxjs';
 import { map, finalize } from 'rxjs/operators';
 import * as firebase from 'firebase';
+import { textChangeRangeIsUnchanged } from 'typescript';
 
 @Injectable({
   providedIn: 'root'
@@ -121,7 +122,7 @@ export class PostService {
    }
 
    //Remove post from firebase database
-   deletePost(postId: string): void {
+   private deletePost(postId: string): void {
 
     this.afs.collection('posts').doc(postId).delete()
     .then(result => console.log("Deleted post " + postId))
@@ -129,22 +130,94 @@ export class PostService {
    }
 
    //Remove image from firebase storage
-   deleteImage(imageName: string): void {
+   private deleteImage(imageName: string): void {
     const storageRef = this.storage.ref(this.basePath);
     storageRef.child(imageName).delete();
    }
 
-   updatePost(postId: string, postText: string): void {
+   updatePostTextAndImage(postId: string, postText: string, oldImage: string, postImage: any): Observable<any> {
+     return forkJoin([
+      this.updatePostText(postId, postText),
+      this.updatePostImage(postId, oldImage, postImage)
+     ]);
+   }
+
+   updatePostText(postId: string, postText: string): Observable<any> {
+    return from(this.afs.collection('posts').doc(postId).update({
+        message: postText
+      }));
+   }
+
+   updatePostImage(postId: string, oldImage: string, postImage: any): any {
+
+    //If new image is not null
+    if (postImage != null) {
+
+      //Delete old image if exists
+      if (oldImage !== "")
+        this.deleteImage(oldImage);
+
+      //Upload image
+      const fileName = `${postImage.name}_${new Date().getTime()}`;
+      const filePath = `${this.basePath}/${fileName}`;
+      const storageRef = this.storage.ref(filePath);
+      const uploadTask = this.storage.upload(filePath, postImage);
+
+      return uploadTask.snapshotChanges().pipe(
+        finalize(() => {
+          storageRef.getDownloadURL().subscribe(downloadURL => {
+            let imageUrl = downloadURL;
+            let imageName = fileName;
+
+            //Update post in Firebase with link to new image
+            this.afs.collection('posts').doc(postId).update(
+              {
+                imageUrl: imageUrl,
+                imageName: imageName
+              }
+            )
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+          });
+        })
+      );
+    }
+    //If new image IS NULL
+    else {
+      this.deleteImage(oldImage);
+
+      //Update post in Firebase with link no image
+      return from(
+        this.afs.collection('posts').doc(postId).update(
+        {
+          imageUrl: '',
+          imageName: ''
+        }
+      ));
+      // .then(res => console.log(res))
+      // .catch(err => console.log(err));
+    }
+   }
+
+   updatePost(postId: string, postText: string, postImage: any): void {
+  //  Promise<any> {
     
-    this.afs.collection('posts').doc(postId).update({
-      message: postText
-      // time: firebase.default.firestore.FieldValue.serverTimestamp()
-    }).then(() => {
-      console.log("Document successfully updated!");
-    })
-    .catch((error) => {
-        console.error("Error updating document: ", error);
-    });
+    // THIS METHOD NEEDS TO BE UPDATED ASAP
+
+    // if postText != already posted text 
+    // if postImage != already posted image or  postImage is a new image
+    // return this.afs.collection('posts').doc(postId).update({
+    //   message: postText
+    //   // time: firebase.default.firestore.FieldValue.serverTimestamp()
+    // });
+
+
+    // .then(() => {
+    //   console.log("Document successfully updated!");
+    // })
+    // .catch((error) => {
+    //     console.error("Error updating document: ", error);
+    // });
   }
 }
 

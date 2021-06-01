@@ -9,7 +9,7 @@
     height: 100%;
     top: 0;
     left: 0;
-    background-color: rgba(230, 230, 230, 0.6); /* Black background with opacity */
+    background-color: rgba(255, 255, 255, 0.733); /* Black background with opacity */
     z-index: 10;
 
     display: grid;
@@ -163,7 +163,7 @@
     position: absolute;
     right: 20px;
     top: 20px;
-    z-index: 100;
+    z-index: 9;
 
     font-size: 14px;
     border-radius: 50%;

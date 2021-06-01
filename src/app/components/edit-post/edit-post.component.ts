@@ -23,14 +23,18 @@ export class EditPostComponent implements OnInit {
   static readonly TITLE_EDIT: string = "Edit post";
   static readonly BTN_CREATE: string = "Post";
   static readonly BTN_EDIT: string = "Save";
+  static readonly ACTION_CREATE: string = "Posting";
+  static readonly ACTION_EDIT: string = "Saving";
 
   @Input() type; //Post or Edit
-  @Input() post; //If Edit, get the post message
+  @Input() post: PostData; //If Edit, get the post message
   @Input() user; //Current user
 
   title: string = '';
   btnLabel: string = '';
-  private messageOriginal;
+  action: string = '';
+  private messageOriginal: string;
+  private imageOriginal: string;
   private imgSrc: string = '';
   selectedImage: any = null;
 
@@ -47,15 +51,22 @@ export class EditPostComponent implements OnInit {
 
     this.title = this.type == EditPostComponent.POST_CREATE ? EditPostComponent.TITLE_CREATE : EditPostComponent.TITLE_EDIT;
     this.btnLabel = this.type == EditPostComponent.POST_CREATE ? EditPostComponent.BTN_CREATE : EditPostComponent.BTN_EDIT;
+    this.action = this.type == EditPostComponent.POST_CREATE ? EditPostComponent.ACTION_CREATE : EditPostComponent.ACTION_EDIT;
 
     if (this.type == EditPostComponent.POST_CREATE) {
       $(".edit-post-form-textarea").attr("placeholder", "What's on your mind?");
+    }
+
+    if (this.type == EditPostComponent.POST_EDIT) {
+      this.imgSrc = this.post.imageUrl;
+      this.imageOriginal = this.post.imageUrl;
+      this.whenAddedImage();
     }
   }
 
 
   isModified(): boolean {
-    return this.editPostForm.get("postText").value !== this.messageOriginal;
+    return (this.editPostForm.get("postText").value !== this.messageOriginal) || (this.imgSrc !== this.imageOriginal);
   }
 
   isImage(): boolean {
@@ -113,10 +124,7 @@ export class EditPostComponent implements OnInit {
       console.log(this.selectedImage);
       this.postData.image = event.target.files[0];
 
-      //Hide Aa button
-      $(".edit-post-toolbar-aa").css("display","none");
-      //Increase height of scrollable
-      $(".edit-post-scrollable").css("height","270px");
+      this.whenAddedImage();
 
 
       // $(document).ready(function() {
@@ -143,10 +151,17 @@ export class EditPostComponent implements OnInit {
     }
   }
 
+  private whenAddedImage() : void {
+    //Hide Aa button
+    $(".edit-post-toolbar-aa").css("display","none");
+    //Increase height of scrollable
+    $(".edit-post-scrollable").css("height","270px");
+  }
+
   clearImage(): void {
     this.imgSrc = '';
     this.selectedImage = null;
-    this.postData.image = null;
+    // this.postData.image = null;
 
     //Hide Aa button
     $(".edit-post-toolbar-aa").css("display","block");
@@ -162,17 +177,8 @@ export class EditPostComponent implements OnInit {
     return this.isPosting;
   }
 
-  // postSomething(sendData): void {
-    
-  //   this.isPosting = true;
-  //   console.log(this.isPosting);
 
-  //   setTimeout(() => {
-  //     this.isPosting = false;
-  //     console.log(this.isPosting);
-  //   },5000);
-  // }
-
+  //Closing modal: Create post or Edit post
   close(sendData): void {
     if (sendData == null) {
       console.log("close no edit");
@@ -180,45 +186,101 @@ export class EditPostComponent implements OnInit {
       return;
     }
 
-    let post: PostData = {
-      avatar: this.user.avatar,
-      firstName: this.user.firstName,
-      lastName: this.user.lastName,
-      likes: [],
-      message: sendData.value.postText,
-      title: this.user.firstName + this.user.lastName,
-      user_id: this.user.id
-    }
-
     let selectedImage = this.selectedImage != null ? this.selectedImage : null;
 
     this.isPosting = true;
     console.log(this.isPosting);
 
-    this.postService.postMessage(post, selectedImage)
-    .pipe(
-      finalize(() => {
-        this.isPosting = false; 
-        console.log(this.isPosting);
-      })
-    )
-    .subscribe(
-      (value) => {
-        console.log(value);
-      },
-      (error) => {
-        console.error(error);
-      },
-      () => {
-        console.log("Post creation complete!");
-        this.isPosting = false;
-        console.log(this.isPosting);
-        this.activeModal.close(null);
+    //If CREATE POST
+    if (EditPostComponent.POST_CREATE == this.type) {
+
+      let post: PostData = {
+        avatar: this.user.avatar,
+        firstName: this.user.firstName,
+        lastName: this.user.lastName,
+        likes: [],
+        message: sendData.value.postText,
+        title: this.user.firstName + this.user.lastName,
+        user_id: this.user.id
       }
-    );
-    
-    // this.isPosting = false;
-    // console.log(this.isPosting);
+
+      this.postService.postMessage(post, selectedImage)
+      .pipe(
+        finalize(() => {
+          this.isPosting = false; 
+          console.log(this.isPosting);
+        })
+      )
+      .subscribe(
+        (value) => {
+          console.log(value);
+        },
+        (error) => {
+          console.error(error);
+        },
+        () => {
+          console.log("Post creation complete!");
+          this.isPosting = false;
+          console.log(this.isPosting);
+          this.activeModal.close(null);
+        }
+      );
+    }
+    //If EDIT POST
+    else {
+      var postText = this.editPostForm.get("postText").value;
+
+      //Only text has changed
+      if (this.editPostForm.get("postText").value !== this.messageOriginal && this.imgSrc === this.imageOriginal) {
+        // alert('Only text has changed');
+        this.postService.updatePostText(this.post.id, postText)
+        .subscribe(
+          (value) => {
+            console.log(value);
+          },
+          (error) => {
+            console.error(error);
+          },
+          () => {
+            this.isPosting = false; 
+            console.log('Edited post text successfully');
+            this.activeModal.close(null);
+          }
+        );
+      }
+      //Only image has changed
+      else if (this.editPostForm.get("postText").value === this.messageOriginal && this.imgSrc !== this.imageOriginal) {
+        // alert('Only image has changed');
+        this.postService.updatePostImage(this.post.id, this.post.imageName, selectedImage)
+        .subscribe(
+          (value) => {
+            console.log(value);
+          },
+          (err) => {console.error(err);
+          },
+          () => {
+            this.isPosting = false; 
+            console.log('Edited post image successfully');
+            this.activeModal.close(null);
+          }
+        );
+      }
+      //Both text and message have changed
+      else if (this.editPostForm.get("postText").value !== this.messageOriginal && this.imgSrc !== this.imageOriginal) {
+        // alert('Both text and message have changed');
+        this.postService.updatePostTextAndImage(this.post.id, postText, this.post.imageName, selectedImage)
+        .subscribe(
+          () => {},
+          (err) => {console.error(err);
+          },
+          () => {
+            this.isPosting = false; 
+            console.log('Edited post text and image successfully');
+            this.activeModal.close(null);
+          }
+        );
+      }
+    }
   }
 
 }
