@@ -3,7 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import * as $ from "jquery";
 import { finalize } from 'rxjs/operators';
-import { PostData, PostService } from 'src/app/services/post.service';
+import { PostService } from 'src/app/services/post.service';
+import { PostData } from 'src/app/shared/postdata.model';
 
 @Component({
   selector: 'app-edit-post',

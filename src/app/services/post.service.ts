@@ -7,6 +7,7 @@ import { Observable, of, from, observable, forkJoin } from 'rxjs';
 import { map, finalize } from 'rxjs/operators';
 import * as firebase from 'firebase';
 import { textChangeRangeIsUnchanged } from 'typescript';
+import { PostData } from '../shared/postdata.model';
 
 @Injectable({
   providedIn: 'root'
@@ -221,16 +222,16 @@ export class PostService {
   }
 }
 
-export interface PostData {
-  avatar: string,
-  firstName: string,
-  lastName: string,
-  likes: string[],
-  message: string,
-  time?: {},
-  title: string,
-  user_id: string,
-  imageUrl?: string,
-  imageName?: string,
-  id?: string
-}
+// export interface PostData {
+//   avatar: string,
+//   firstName: string,
+//   lastName: string,
+//   likes: string[],
+//   message: string,
+//   time?: {},
+//   title: string,
+//   user_id: string,
+//   imageUrl?: string,
+//   imageName?: string,
+//   id?: string
+// }

@@ -26,6 +26,7 @@
     "@fortawesome/fontawesome-free": "^5.15.3",
     "@ng-bootstrap/ng-bootstrap": "^9.0.2",
     "bootstrap": "^4.5.0",
+    "fast-average-color": "^6.4.0",
     "firebase": "^8.3.1",
     "jquery": "^3.6.0",
     "ngx-pipes": "^2.7.5",

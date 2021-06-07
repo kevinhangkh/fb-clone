@@ -35,16 +35,16 @@
 - [ ] Mid body: post pictures
     - [x] Create post w/ pic
         - [x] Upload to firebase storage
-    - [ ] Edit post w/ pic
-        - [ ] Add pic
-        - [ ] Change pic
-            - [ ] Upload new pic and delete old
-        - [ ] Remove pic but not post
+    - [x] Edit post w/ pic
+        - [x] Add pic
+        - [x] Change pic
+            - [x] Upload new pic and delete old
+        - [x] Remove pic but not post
     - [x] Delete post w/ pic
         - [x] Remove pic from firebase storage
-    - [ ] Show pics in post list
+    - [x] Show pics in post list
         - [x] Show pics
-        - [ ] Resize image if height too high
+        - [x] Resize image if height too high
 - [ ] Mid body: Embed youtube links
 - [x] Mid body: Display line breaks in posts
 - [ ] Right body: add mock sections (birthdays, events...)

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UserData } from 'src/app/services/auth.service';
 import * as $ from "jquery";
+import { UserData } from 'src/app/shared/userdata.model';
 
 @Component({
   selector: 'app-contact-list',

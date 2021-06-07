@@ -5,7 +5,8 @@ import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { User } from '@firebase/auth-types';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { MiscData } from '../shared/misc-data';
+import { UserData } from '../shared/userdata.model';
+import { MiscdataService } from './miscdata.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +18,9 @@ export class AuthService {
   private currentUser$: BehaviorSubject<UserData> = new BehaviorSubject<UserData>(null);
   private userDataSub;
 
-  constructor(private afs: AngularFirestore, private afa: AngularFireAuth, private router: Router) { 
+  constructor(private afs: AngularFirestore, private afa: AngularFireAuth, private router: Router, private miscdataService: MiscdataService) { 
     
     this.userData = afa.authState;
-    
     
     this.userDataSub = this.userData.subscribe(user => {
       if (user) {
@@ -52,9 +52,9 @@ export class AuthService {
     password: string,
     firstName: string,
     lastName: string,
-    avatar = MiscData.avatars[Math.floor(Math.random() * MiscData.avatars.length)],
-    mutualFriends = Math.floor(Math.random() * MiscData.maxMutualFriends + 1),
-    school = MiscData.schools[Math.floor(Math.random() * MiscData.schools.length)]
+    avatar = MiscdataService.avatars[Math.floor(Math.random() * MiscdataService.avatars.length)],
+    mutualFriends = Math.floor(Math.random() * MiscdataService.maxMutualFriends + 1),
+    school = MiscdataService.schools[Math.floor(Math.random() * MiscdataService.schools.length)]
     ): void {
       
       this.afa.createUserWithEmailAndPassword(email, password)
@@ -168,12 +168,12 @@ export class AuthService {
      }
   }
   
-  export interface UserData {
-    firstName: string;
-    lastName: string;
-    email: string;
-    avatar: string;
-    mutualFriends: number;
-    school: string;
-    id?: string;
-  }
+  // export interface UserData {
+  //   firstName: string;
+  //   lastName: string;
+  //   email: string;
+  //   avatar: string;
+  //   mutualFriends: number;
+  //   school: string;
+  //   id?: string;
+  // }

@@ -4,12 +4,15 @@ import { MatCardModule } from '@angular/material/card';
 import { Title } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
-import { AuthService, UserData } from 'src/app/services/auth.service';
-import { PostData, PostService } from 'src/app/services/post.service';
-import { MiscData } from 'src/app/shared/misc-data';
+import { AuthService } from 'src/app/services/auth.service';
+import { PostService } from 'src/app/services/post.service';
 import { EditPostComponent } from '../edit-post/edit-post.component';
 import { ContactListComponent } from '../contact-list/contact-list.component';
+import FastAverageColor from 'fast-average-color/dist/index.es6';
 import * as $ from "jquery";
+import { PostData } from 'src/app/shared/postdata.model';
+import { UserData } from 'src/app/shared/userdata.model';
+import { MiscdataService, Story } from 'src/app/services/miscdata.service';
 
 
 @Component({
@@ -17,7 +20,7 @@ import * as $ from "jquery";
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   active: {} = {
     home: true,
@@ -27,15 +30,16 @@ export class HomeComponent implements OnInit, OnDestroy {
     flag: false
   };
 
-  stories = new Array<{url: string, name:string}>(6);
+  stories = new Array<Story>(6);
 
   posts: PostData[] = [];
   user: UserData;
-  userdata: UserData;
+  // userdata: UserData;
   users: UserData[] = [];
   subscriptions: Subscription[] = [];
 
-  constructor(private postService: PostService,
+  constructor(private miscdataService: MiscdataService,
+    private postService: PostService,
     private authService: AuthService,
     private titleService: Title,
     private editPostModal: NgbModal) { }
@@ -44,65 +48,54 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.titleService.setTitle("Fakebook");
 
-    this.stories = this.getRandomStories();
+    this.subscriptions.push(this.miscdataService.getRandomStories(this.stories.length).subscribe(stories => {this.stories = stories}));
 
     this.subscriptions.push(this.postService.getAllPosts().subscribe(posts => this.posts = posts));
     
-    this.subscriptions.push(this.authService.CurrentUser().subscribe(user => {
-      this.user = user;
-    }));
-
-    // console.log(this.user);
-    
+    this.subscriptions.push(this.authService.CurrentUser().subscribe(user => {this.user = user;}));
 
     this.subscriptions.push(this.authService.getAllUsers().subscribe(users => this.users = users));
-
-    // console.log(this.users);
-
-
-    // $(document).ready(function() {
-    //   console.log('functionnnnnnnnn');
-      
-    //   // whenever we hover over a menu item that has a submenu
-    //   $('contact').on('mouseover', function() {
-        
-    //   console.log('functionnnnnnnnn22222222222');
-    //     var $menuItem = $(this),
-    //         $submenuWrapper = $('> .contact-card-tooltip-wrapper', $menuItem);
-        
-    //     // grab the menu item's position relative to its positioned parent
-    //     var menuItemPos = $menuItem.position();
-        
-    //     // place the submenu in the correct position relevant to the menu item
-    //     $submenuWrapper.css({
-    //       top: menuItemPos.top,
-    //       left: menuItemPos.left - Math.round($menuItem.outerWidth() * 0.75)
-    //     });
-    //   });
-    // });
-
-    // $(document).ready(function() {
-    //   var img = $('.post-image').live();//jQuery class selector
-    //   console.log(img);
-      
-    
-    //   var width = img.width(); //jQuery width method
-    //   var height = img.height(); //jQuery height method
-
-    //   console.log(width);
-    //   console.log(height);
-    
-    //   if(width < height){
-    //      img.addClass('portrait');
-    //   }
-    // });
     
   }
 
-  // ngAfterViewInit(): void {
-  //   this.printIt();
-  //   this.subscriptions.push(this.authService.getAllUsers(this.user.id).subscribe(users => this.users = users));
-  // }
+  ngAfterViewInit(): void {
+
+    //Get dominant color for background
+    // $(document).ready(function() {
+
+    //   // var img = $(this).find('.test');
+    //   //   if (img.length == 0)
+    //   //     return;
+
+    //   //     console.log(img[0]);
+    //   //   console.log(img[0].src);
+
+    //   //   const fac = new FastAverageColor();
+    //   //   var dominantColor = fac.getColorAsync(img[0]);
+    //   //   console.log(dominantColor);
+
+    //   $('.posts').on('DOMNodeInserted','.post', function() {
+    //     console.log($(this).prop('class'));
+        
+
+    //     var img = $(this).find('.post-image');
+    //     if (img.length == 0)
+    //       return;
+
+    //       console.log(img[0]);
+    //     console.log($(img[0]).prop('src'));
+
+    //     const fac = new FastAverageColor();
+
+    //     // console.log(img[0].currentSrc);
+        
+    //     // var dominantColor = fac.getColorAsync('../../../assets/f_logo.png');
+    //     // console.log(dominantColor);
+        
+    //     // $('.post-image-wrapper').css('background-color','rgb('+rgb.r+','+rgb.g+','+rgb.b+')');
+    //   })
+    // });
+  }
 
   ngOnDestroy(): void {
     console.log("ngOnDestroy home");
@@ -127,20 +120,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     // console.log(this.active);
   }
 
-  getRandomStories(): {url: string, name:string}[] {
+  postHasImage(p: PostData): boolean {
 
-    let stories: {url: string, name:string}[] = [];
-
-    while (stories.length < this.stories.length) {
-      var story = MiscData.stories[Math.floor(Math.random() * MiscData.stories.length)];
-      if (stories.indexOf(story) === -1) {
-        stories.push(story);
-      }
-    }
-
-    // console.log(stories);
-    
-    return stories;
+    return p?.imageUrl !== '';
   }
 
   postSomething(form: NgForm): void {
