@@ -61,17 +61,17 @@ export class EditPostComponent implements OnInit {
     if (this.type == EditPostComponent.POST_EDIT) {
       this.imgSrc = this.post.imageUrl;
       this.imageOriginal = this.post.imageUrl;
-      this.whenAddedImage();
+      if (this.imgSrc !== '')
+        this.whenAddedImage();
     }
   }
-
 
   isModified(): boolean {
     return (this.editPostForm.get("postText").value !== this.messageOriginal) || (this.imgSrc !== this.imageOriginal);
   }
 
-  isImage(): boolean {
-    return this.imgSrc !== '';
+  isImage(): any {
+    return this.imgSrc;
   }
 
   showPreview(event: any): void {
@@ -190,7 +190,7 @@ export class EditPostComponent implements OnInit {
     let selectedImage = this.selectedImage != null ? this.selectedImage : null;
 
     this.isPosting = true;
-    console.log(this.isPosting);
+    // console.log(this.isPosting);
 
     //If CREATE POST
     if (EditPostComponent.POST_CREATE == this.type) {
@@ -222,7 +222,7 @@ export class EditPostComponent implements OnInit {
         () => {
           console.log("Post creation complete!");
           this.isPosting = false;
-          console.log(this.isPosting);
+          // console.log(this.isPosting);
           this.activeModal.close(null);
         }
       );
@@ -236,9 +236,7 @@ export class EditPostComponent implements OnInit {
         // alert('Only text has changed');
         this.postService.updatePostText(this.post.id, postText)
         .subscribe(
-          (value) => {
-            console.log(value);
-          },
+          () => {},
           (error) => {
             console.error(error);
           },
@@ -251,12 +249,10 @@ export class EditPostComponent implements OnInit {
       }
       //Only image has changed
       else if (this.editPostForm.get("postText").value === this.messageOriginal && this.imgSrc !== this.imageOriginal) {
-        // alert('Only image has changed');
+        // alert('Only image has changed' + this.post.imageName);
         this.postService.updatePostImage(this.post.id, this.post.imageName, selectedImage)
         .subscribe(
-          (value) => {
-            console.log(value);
-          },
+          () => {},
           (err) => {console.error(err);
           },
           () => {

@@ -132,8 +132,12 @@ export class PostService {
 
    //Remove image from firebase storage
    private deleteImage(imageName: string): void {
-    const storageRef = this.storage.ref(this.basePath);
-    storageRef.child(imageName).delete();
+    try {
+      const storageRef = this.storage.ref(this.basePath);
+      storageRef.child(imageName).delete();
+    } catch (error) {
+      console.error(error);
+    }
    }
 
    updatePostTextAndImage(postId: string, postText: string, oldImage: string, postImage: any): Observable<any> {
@@ -155,7 +159,7 @@ export class PostService {
     if (postImage != null) {
 
       //Delete old image if exists
-      if (oldImage !== "")
+      if (oldImage)
         this.deleteImage(oldImage);
 
       //Upload image
@@ -177,7 +181,7 @@ export class PostService {
                 imageName: imageName
               }
             )
-            .then(res => console.log(res))
+            .then()
             .catch(err => console.log(err));
           });
         })
