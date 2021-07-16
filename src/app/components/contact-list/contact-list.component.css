@@ -4,6 +4,16 @@
     /* gap: 10px; */
     /* width: 250px; */
     height: 100vh;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+
+.contacts:hover {
+    overflow-y: scroll;
+
+    scrollbar-width: thin;
+    scrollbar-color: #cacaca #dfdfdf;
 }
 
 .contacts-title {
@@ -54,7 +64,7 @@
    background-color: #dbdcdf; 
 }
 
-.contact-list-container {
+/* .contact-list-container {
     overflow-y: hidden;
     overflow-x: hidden;
 }
@@ -64,7 +74,7 @@
 
     scrollbar-width: thin;
     scrollbar-color: #cacaca #dfdfdf;
-}
+} */
 
 
 .contact-list {

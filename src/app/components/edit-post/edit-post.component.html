@@ -36,9 +36,9 @@
                 </div>
             </form>
         </div>
-        <div class="edit-post-toolbar">
-            <img class="edit-post-toolbar-aa" src="../../../assets/Aa_square.png" *ngIf="!isImage()"/>
-            <i class="far fa-smile fa-fw edit-post-toolbar-emoji emoji-pos-no-img" *ngIf="!isImage()" [ngbTooltip]="emojiTip" tooltipClass="edit-post-btn-tip" openDelay="250"></i>
+        <div class="edit-post-toolbar" *ngIf="!isImage()">
+            <img class="edit-post-toolbar-aa" src="../../../assets/Aa_square.png"/>
+            <i class="far fa-smile fa-fw edit-post-toolbar-emoji emoji-pos-no-img" [ngbTooltip]="emojiTip" tooltipClass="edit-post-btn-tip" openDelay="250"></i>
             <ng-template #emojiTip>Emoji</ng-template>
         </div>
         <div class="edit-post-attached">

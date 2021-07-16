@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -94,7 +94,8 @@ static readonly stories: Story[] = [
   constructor() { }
 
   getRandomStories(count: number): Observable<Story[]> {
-    return new Observable((observer) => {
+    // return new Observable((observer) => {
+
 
       let stories: Story[] = [];
 
@@ -105,8 +106,10 @@ static readonly stories: Story[] = [
         }
       }
 
-      observer.next(stories);
-    });
+      return of(stories);
+
+    //   observer.next(stories);
+    // });
   }
 
 }

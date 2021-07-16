@@ -1,3 +1,11 @@
+# FbClone
+
+This app is a clone of Facebook's home page. It allows the user to sign up, sign in, post something (text and/or pictures) and like posts.
+The authentication is using a email/password authentication with Firebase.
+The database is supported by Firebase Cloud Firestore.
+Pictures are uploaded to Firebase Storage.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.0.
+
 # TODO
 - [x] 1st commit
 - [x] Add mutual friends, work/study place in Firebase when creating user
@@ -32,7 +40,7 @@
     - [x] Backend
 - [x] Mid body: Create post modal
     - [x] Re-use edit post modal
-- [ ] Mid body: post pictures
+- [x] Mid body: post pictures
     - [x] Create post w/ pic
         - [x] Upload to firebase storage
     - [x] Edit post w/ pic
@@ -55,21 +63,3 @@
     - [x] Show scrollbar when hovered
 - [x] Right body: add New message bottom right button
 - [ ] Left & Right body: get rid of that small scrolling when browsing posts
-
-
-
-# FbClone
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.0.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.

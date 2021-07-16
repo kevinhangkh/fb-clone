@@ -16,6 +16,11 @@ export class ContactListComponent implements OnInit {
   
   ngOnInit(): void {
 
+    // console.log('%c contact-list', 'color: lightsalmon; font-weight: bold;');
+    // console.log('%c contact-list', 'color: orange; font-weight: 500;');
+    // console.log('%c contact-list', 'font-weight: bold; font-size: 20px');
+    
+
     //Because displaying elements outside of overflow: hidden is not allowed, we had to improvise, adapt, overcome...
     //JQuery code that allows to reposition the tooltip according to the hovered contact
     $(document).ready(function() {
