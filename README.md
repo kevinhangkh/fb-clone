@@ -1,10 +1,17 @@
 # FbClone
 
-This app is a clone of Facebook's home page. It allows the user to sign up, sign in, post something (text and/or pictures) and like posts.
+This app is a clone of Facebook's home page. 
+It allows the user to sign up, sign in, post something (text and/or pictures) and like posts.
 The authentication is using a email/password authentication with Firebase.
 The database is supported by Firebase Cloud Firestore.
 Pictures are uploaded to Firebase Storage.
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.0.
+
+This is one of my biggest project so far. Really proud of how it turned out.
+
+# Demo
+
+Check the demo here: [https://fb-clone-phi.vercel.app/](https://fb-clone-phi.vercel.app/)
 
 # TODO
 - [x] 1st commit
