@@ -7,7 +7,7 @@ The database is supported by Firebase Cloud Firestore.
 Pictures are uploaded to Firebase Storage.
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.0.
 
-This is one of my biggest project so far. Really proud of how it turned out.
+This is one of my biggest project so far. Really proud of how it turned out. :smile:
 
 # Demo
 
