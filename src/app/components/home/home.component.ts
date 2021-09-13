@@ -38,6 +38,8 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   users: UserData[] = [];
   subscriptions: Subscription[] = [];
 
+  readonly MAX_LIKES_DISPLAYED: number = 5;
+
   constructor(private miscdataService: MiscdataService,
     private postService: PostService,
     private authService: AuthService,
@@ -178,6 +180,41 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   isPostLikedByUser(post: PostData, user: UserData): boolean {
     return post.likes.indexOf(user.id) != -1;
   }
+
+  getUsersThatLikedPost(p: PostData): String[] {
+    var likers: String[] = [];
+    var i = 0;
+
+    this.users.forEach((user) => {
+      if (this.isPostLikedByUser(p, user) && i < this.MAX_LIKES_DISPLAYED) {
+        likers.push(user.firstName + " " + user.lastName);
+        i++;
+      }
+    });
+
+    if (p.likes.length > this.MAX_LIKES_DISPLAYED) {
+      likers.push(p.likes.length - this.MAX_LIKES_DISPLAYED + " more");
+    }
+
+    return likers;
+  }
+
+  // getUsersThatLikedPost(likes: string[]): String[] {
+  //   var likers: String[];
+  //   console.log(likes);
+    
+  //   likes.forEach(
+  //     (userId) => {
+  //       this.authService.SearchUserInDatabase(userId).subscribe(
+  //         (user) => {
+  //           likers.push(user.firstName + " " + user.lastName);
+  //           console.log(user.firstName + " " + user.lastName);
+  //         }
+  //       );
+  //     });
+
+  //     return likers;
+  // }
 
   isPostFromUser(post: PostData, user: UserData): boolean {
     return post.user_id == user.id;

@@ -129,7 +129,6 @@ export class AuthService {
     SearchUserInDatabase(user_id: string): Observable<UserData> {
       return this.afs.collection<UserData>('users').doc<UserData>(user_id).valueChanges();
     }
-     
 
     testError() {
       throwError('this is an error');
